@@ -105,7 +105,7 @@ const CartCheckout = (props) => {
                     </div>
                     <div className='order_info_container'>
                         <label htmlFor="cart_order_address"><b>Address:</b> </label>
-                        <input type="text" id="cart_order_address" onChange={(e) => setAddress(e.target.value)} />
+                        <input type="text" id="cart_order_address" onChange={(e) => setAddress(e.target.value)} placeholder='Enter Address' />
                     </div>
                     <div className='order_info_container'>
                         <label htmlFor="cart_order_city"><b>City:</b> </label>
@@ -135,7 +135,7 @@ const CartCheckout = (props) => {
                     </div>
                     <div className='order_info_container'>
                         <label htmlFor="cart_order_pin"><b>Pin:</b>   </label>
-                        <input type="text" id="cart_order_pin" onChange={(e) => setPin(e.target.value)} style={{ width: "50%" }}/>
+                        <input type="text" id="cart_order_pin" onChange={(e) => setPin(e.target.value)} style={{ width: "50%" }} placeholder='Enter pin'/>
                     </div>
                     <div className='order_info_container'>
                         <p><b>Price:</b> Rs. {props.price}</p> 
