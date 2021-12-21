@@ -5,6 +5,9 @@ import "./../Styles/Product.css";
 import { ProductData } from '../Helpers/ProductData';
 import Spinner from './Spinner';
 import { useNavigate } from 'react-router-dom'
+import Visa from './../Assets/visa.svg';
+import MasterCard from './../Assets/mastercard.svg';
+import Paypal from './../Assets/paypal.svg';
 
 const stateList = ['Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh',
 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 
