@@ -24,6 +24,7 @@ const CartCheckout = (props) => {
     const [pin, setPin] = useState('');
     const [isFetched, setIsFetched] = useState(false);
     const [isEmpty, setIsEmpty] = useState(false);
+    const [payChosen, setPayChosen] = useState(false);
     let navigate = useNavigate();
     useEffect(() => {
         fetchUserData();
@@ -46,7 +47,7 @@ const CartCheckout = (props) => {
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     const addOrder = async () => {
-        if((address === '')||(city === '')||(state === '')||(pin === '')) setIsEmpty(true);
+        if((address === '')||(city === '')||(state === '')||(pin === '')||(!payChosen)) setIsEmpty(true);
         else
         {
             //let delItems = [];
@@ -135,6 +136,29 @@ const CartCheckout = (props) => {
                     </div>
                     <div className='order_info_container'>
                         <p><b>Price:</b> Rs. {props.price}</p> 
+                    </div>
+                    <div className='order_info_container'>
+                        <p><b>Choose payment method:</b></p>
+                        <input type="radio" name="pay_methods" id="cart_pay_cash" style={{ width: "fit-content" }} onChange={() => setPayChosen(true)}/>
+                        <label htmlFor="cart_pay_cash"> Cash on delivery</label><br />
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                            <input type="radio" name="pay_methods" id="cart_pay_visa" style={{ 
+                                width: "fit-content", 
+                                marginRight: "1rem" }} onChange={() => setPayChosen(true)}/>
+                            <label htmlFor="cart_pay_visa"> <img src={Visa} alt='Visa'/> </label><br />
+                        </div>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                            <input type="radio" name="pay_methods" id="cart_pay_mastercard" style={{ 
+                                width: "fit-content",
+                                marginRight: "1rem" }} onChange={() => setPayChosen(true)}/>
+                            <label htmlFor="cart_pay_mastercard"> <img src={MasterCard} alt='MasterCard'/></label><br />
+                        </div>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                            <input type="radio" name="pay_methods" id="cart_pay_paypal" style={{ 
+                                width: "fit-content",
+                                marginRight: "1rem" }} onChange={() => setPayChosen(true)}/>
+                            <label htmlFor="cart_pay_paypal"> <img src={Paypal} alt='Paypal'/></label><br />
+                        </div>
                     </div>
                     { isEmpty && <p style={{ color: 'red', fontSize: '1.5rem', margin: '1rem 4rem' }}>*Please specify all fields</p> }
                     <button className='order_paybtn' onClick={addOrder} style={{ 
