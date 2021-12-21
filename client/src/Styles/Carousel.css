@@ -1,0 +1,100 @@
+.carousel {
+    width: 100vw;
+    background-color: rgb(35, 0, 51);
+    position: relative;
+}
+.carotrackcontainer {
+    width: 100%;
+    max-width: 1000px;
+    height: 43rem;
+    margin: 0 auto;
+    /*border: 2px solid black;*/
+    overflow-x: hidden;
+    position: relative;
+}
+.carotrack {
+    width: 100vw;
+    height: 100%;
+    max-width: 1000px;
+    position: absolute;
+    transition: left 0.5s linear;
+    /*transform: translateX(-100%);*/
+    /*border: 2px solid red;*/
+    /* translate X by 0, 100%, 200%, ..., to display images one by one will work as max-width is not on track, it is on track container */
+}
+.carocard {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding: 3.5rem 0;
+    position: absolute;
+    /*border: 2px solid blue;*/
+    /* Add "translateX and position relative" to get same effect as "left and position absolute" */
+}
+.carocard img {
+    display: block;
+    margin: auto auto;
+    max-width: 80vw;
+}
+.carodesc {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.carodesc p {
+    font-size: 3rem;
+    padding: 4rem 0;
+    text-align: center;
+}
+.carodesc a {
+    text-decoration: none;
+    border-style: none;
+    color: white;
+    font-size: 4.5rem;
+    padding: 2rem;
+    border-radius: 2rem;
+    transition: color 0.5s linear, background-color 0.5s linear;
+}
+.carodesc a:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+.caro-left-btn, .caro-right-btn {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: none;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.200);
+    z-index: 10;
+}
+.caro-left-btn {
+    left: 0;
+}
+.caro-right-btn {
+    right: 0;
+}
+.caro-left-btn:hover, .caro-right-btn:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+@media (max-width: 745px) {
+    .carocard {
+        display: block;
+    }
+    .carotrackcontainer {
+        height: 65rem;
+    }
+    .caro-left-btn:hover, .caro-right-btn:hover {
+        background-color: rgba(114, 114, 114, 0.247);
+    }
+}

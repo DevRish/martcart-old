@@ -1,0 +1,94 @@
+.authContainer {
+    width: 100vw;
+    max-width: 1000px;
+    margin: auto;
+    /*border: 2px solid black;*/
+}
+.authContainer h1 {
+    width: 100%;
+    font-size: 3.5rem;
+    text-align: center;
+    padding: 1rem 0;
+}
+.authNav {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 0.5rem solid #230033;
+    padding-top: 1rem;
+}
+.authNav button {
+    font-size: 3rem;
+    border-style: none;
+    padding: 1rem 0;
+    background-color: white;
+    color: #230033;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.authNav button:hover {
+    cursor: pointer;
+}
+.authNav .active {
+    background-color: #230033;
+    color: white;
+}
+
+.authcomp {
+    padding: 2rem 2rem;
+    width: 40%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 30%;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 10px;
+    box-shadow: 1rem 1rem 1rem gray;
+}
+.authbtn {
+    margin: auto;
+    width: fit-content;
+    font-size: 3rem;
+    border-style: none;
+    color: white;
+    background-color: #230033;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    margin: 1rem auto;
+}
+.authbtn:hover {
+    transform: scale(1.1);
+}
+.authcomp label {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    /*border: 2px solid black;*/
+}
+.authcomp input {
+    border-style: none;
+    width: 100%;
+    height: 3rem;
+    font-size: 2rem;
+    border-bottom: 2px solid #230033;
+    margin-bottom: 3rem;
+}
+.authcomp input:focus {
+    outline: none;
+    border-bottom: 2px solid #230033;
+}
+.authcomp span {
+    font-size: 1.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+@media (max-width: 745px) {
+    .authcomp {
+        margin-left: 5%;
+        width: 90%;
+    }
+}

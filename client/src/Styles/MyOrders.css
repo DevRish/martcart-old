@@ -1,0 +1,46 @@
+.orderContainer {
+    width: 100vw;
+    max-width: 1000px;
+    margin: auto;
+    /*border: 2px solid black;*/
+}
+.orderContainer h1 {
+    width: 100%;
+    font-size: 3.5rem;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.orderCard {
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+    background-color: rgb(231, 231, 231);
+    margin-top: 2rem;
+    overflow: hidden;
+    box-shadow: 0.3rem 1rem 1rem gray;
+    min-height: 27rem;
+    z-index: 9;
+}
+
+.orderDesc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 2.5rem;
+    padding: 2rem 3rem;
+}
+
+.orderImg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 745px) {
+    .orderCard {
+        grid-template-columns: 1fr;
+        grid-template-rows: 7fr 3fr;
+    }
+}

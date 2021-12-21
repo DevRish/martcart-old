@@ -1,0 +1,79 @@
+.collection {
+    width: 100vw;
+}
+.categoryContainer {
+    width: 100vw;
+    max-width: 1000px;
+    margin: auto;
+    padding: 1rem 0;
+}
+.categoryContainer h1 {
+    width: 100%;
+    font-size: 3.5rem;
+    text-align: center;
+    padding: 1rem 0;
+    /*border: 2px solid black;*/
+}
+.category {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    /*border: 2px solid green;*/
+}
+.categoryCard {
+    border-radius: 10px;
+    /*border: 2px solid blue;*/
+    display: grid;
+    grid-template-rows: 6fr 4fr;
+    box-shadow: 0.5rem 0.5rem 1rem gray;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+.categoryCard:hover {
+    transform: scale(1.02);
+}
+.catCardImg {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 20rem;
+    /*border: 2px solid blue;*/
+}
+.catCardDesc {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.6rem;
+    /* border: 2px solid red; */
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+}
+.categoryCardLast {
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    background-color: rgb(221, 221, 221);
+}
+.categoryCardLast a{
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    font-size: 2.5rem;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    background-color: #230033;
+}
+@media (max-width: 745px) {
+    .categoryContainer h1 {
+        font-size: 2.5rem;
+    }
+    .category {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-gap: 5px;
+    }
+}

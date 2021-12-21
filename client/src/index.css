@@ -1,0 +1,50 @@
+/* Fonts Globally declared */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; /* sothat border size is considered withing element size*/
+}
+html {
+  font-size: 62.5%; /* default about 16 px, so now font-size of root = 0.625*16 = 10 px, for using rem */
+  font-family: 'Poppins', sans-serif;
+  overflow-y: overlay; /* Sothat scrollbar doesnot take up space, becomes like position absolute */
+}
+/* Breakpoints figured out by experimentation , for the carousel */
+@media (max-width: 745px) {
+  html {
+    font-size: 59%;
+  }
+}
+@media (min-width: 450px) {
+  html {
+    font-size: 65%;
+  }
+}
+@media (max-width: 435px) {
+  html {
+    font-size: 63%;
+  }
+}
+@media (max-width: 375px) {
+  html {
+    font-size: 59%;
+  }
+}
+/* Scroll bar */
+@media (min-width: 750px)
+{
+  ::-webkit-scrollbar {
+    width: 14px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #230033; 
+    border-radius: 7px;
+  } 
+}
+
+/* utility classes */

@@ -1,0 +1,83 @@
+.prodbtns {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.prodbtns button {
+    border: none;
+    background-color: #230033;
+    border-radius: 1rem;
+    font-size: 2rem;
+    color: white;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.prodbtns button:hover {
+    transform: scale(1.1);
+}
+
+.checkoutCard {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(247, 247, 247);
+    box-shadow: 0.3rem 1rem 1rem gray;
+    padding-bottom: 1rem;
+    margin: 2rem 0;
+    transform: scaleY(0);
+    transition: transform 2s linear;
+}
+
+.checkoutVis {
+    transform: scaleY(1);
+}
+
+.order_info_outer {
+    margin: 0 auto;
+    width: 50%;
+}
+
+.order_info_container {
+    font-size: 2rem;
+    margin-left: 4rem;
+    margin-bottom: 0.5rem;
+}
+
+.order_info_container input{
+    border-style: none;
+    border: 2px solid #230033;
+    width: 50%;
+    border-radius: 5px;
+}
+
+.order_info_container input:focus {
+    outline: none;
+    border-bottom: 2px solid #230033;
+}
+
+.order_paybtn {
+    border: none;
+    background-color: #230033;
+    border-radius: 1rem;
+    font-size: 3rem;
+    color: white;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    width: fit-content;
+    display: block;
+    margin: 1.5rem auto;
+}
+
+.order_paybtn:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 745px) {
+    .order_info_outer {
+        width: 80%;
+    }
+    .order_info_container input{
+        width: 80%;
+    }
+}
