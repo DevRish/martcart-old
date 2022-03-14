@@ -38,7 +38,8 @@ const Profile = (props) => {
                     <h2 style={{ textAlign: 'center', fontSize: '3rem', paddingTop: '2rem', margin: "2rem 0" }}>
                         Welcome back {props.currUser}!
                     </h2>
-                    <p style={{ fontSize: '2rem', textAlign: "center" }}><b>User Since:</b> {userData.joinDate} </p>
+                    { console.log('Type of joinDate is: ' + (typeof userData.joinDate) ) }
+                    <p style={{ fontSize: '2rem', textAlign: "center" }}><b>User Since:</b> {userData.joinDate.substring(0, 10)} </p>
                     <button style={{ 
                         display: "block",
                         margin: "auto",

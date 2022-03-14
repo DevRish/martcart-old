@@ -85,8 +85,6 @@ const SignUp = (props) => {
                 else if ( password !== cpassword) setFailMsg('Password and Confirm Password donot match');
                 else
                 {
-                    var today = new Date();
-                    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
                     fetch('/adduser', {
                         method: 'post',
                         body: JSON.stringify({
@@ -95,8 +93,7 @@ const SignUp = (props) => {
                             username: username,
                             phone: phone,
                             email: email,
-                            password: password,
-                            date: date
+                            password: password
                         }),
                         headers: {
                             'Content-Type' : 'application/json'

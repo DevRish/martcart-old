@@ -8,10 +8,7 @@ module.exports.signinController = async (req, res) => {
         username: req.body.username,
         phone: req.body.phone,
         email: req.body.email,
-        password: req.body.password,
-        cart: [],
-        orders: [],
-        joinDate: new Date()
+        password: req.body.password
     });
     User.find({ username: req.body.username }).then((users) => {
         if(users.length===0)

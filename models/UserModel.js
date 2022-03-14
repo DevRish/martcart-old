@@ -7,9 +7,9 @@ const userSchema = new mongoose.Schema({
     phone: String,
     email: String,
     password: String,
-    cart: Array,
-    orders: Array,
-    joinDate: String
+    cart: { type: Array },
+    orders: { type: Array },
+    joinDate: { type: Date, default: Date.now}
 });
 
 module.exports.User = mongoose.model('User', userSchema);
