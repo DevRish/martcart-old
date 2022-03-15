@@ -1,0 +1,20 @@
+{
+  "name": "martcart",
+  "version": "1.0.0",
+  "description": "Checkout this website live at: https://martcartdevrish.herokuapp.com/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevRish/martcart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DevRish/martcart/issues"
+  },
+  "homepage": "https://github.com/DevRish/martcart#readme"
+}
