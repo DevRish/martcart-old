@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { SERVER_URL } from '../config/keys';
 import "./../Styles/MyOrders.css";
 //import { completed } from '../Helpers/TestSampleData/OrdersData';
 import { ProductData } from '../Helpers/ProductData';
@@ -13,7 +14,7 @@ const MyOrders = (props) => {
     const fetchOrderData = async () => {
         if(props.currUser !== '')
         {
-            fetch('/getorderdata', {
+            fetch(`${SERVER_URL}/getorderdata`, {
                 method: 'post',
                 headers: {
                     'Content-Type' : 'application/json'

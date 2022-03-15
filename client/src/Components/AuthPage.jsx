@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
+import { SERVER_URL } from './../config/keys'
 import "./../Styles/AuthPage.css";
 
 const SignIn = (props) => {
@@ -21,7 +22,7 @@ const SignIn = (props) => {
                 setFailMsg('Please fill all the fields');
                 else
                 {
-                    fetch('/validate', {
+                    fetch(`${SERVER_URL}/validate`, {
                         method: 'post',
                         body: JSON.stringify({
                             username: username,
@@ -85,7 +86,7 @@ const SignUp = (props) => {
                 else if ( password !== cpassword) setFailMsg('Password and Confirm Password donot match');
                 else
                 {
-                    fetch('/adduser', {
+                    fetch(`${SERVER_URL}/adduser`, {
                         method: 'post',
                         body: JSON.stringify({
                             firstname: firstname,

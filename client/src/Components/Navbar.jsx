@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from 'react';
+import { SERVER_URL } from '../config/keys';
 import { Link } from 'react-router-dom';
 import './../Styles/Navbar.css';
 
@@ -10,7 +11,7 @@ const Navbar = (props) => {
     const fetchCartCount = async () => {
         if(props.currUser !== '')
         {
-            fetch('/getcartdata', {
+            fetch(`${SERVER_URL}/getcartdata`, {
                 method: 'post',
                 headers: {
                     'Content-Type' : 'application/json'

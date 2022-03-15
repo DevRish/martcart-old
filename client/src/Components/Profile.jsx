@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { SERVER_URL } from '../config/keys';
 import "./../Styles/Cart.css";
 import Spinner from './Spinner';
 
@@ -16,7 +17,7 @@ const Profile = (props) => {
         fetchUserData();
     }, []);
     const fetchUserData = async () => {
-        fetch('/getUserData', {
+        fetch(`${SERVER_URL}/getUserData`, {
             method: 'post',
             headers: {
                 'Content-Type' : 'application/json'

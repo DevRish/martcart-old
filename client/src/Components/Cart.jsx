@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { SERVER_URL } from '../config/keys';
 import "./../Styles/Cart.css";
 import "./../Styles/Product.css";
 //import { cartdata } from '../Helpers/TestSampleData/CartData';
@@ -33,7 +34,7 @@ const CartCheckout = (props) => {
         fetchUserData();
     }, []);
     const fetchUserData = async () => {
-        fetch('/getUserData', {
+        fetch(`${SERVER_URL}/getUserData`, {
             method: 'post',
             headers: {
                 'Content-Type' : 'application/json'
@@ -58,7 +59,7 @@ const CartCheckout = (props) => {
             {
                 let item = props.cartdata[x];
                 //delItems.push(item.id);
-                fetch('/addOrder', {
+                fetch(`${SERVER_URL}/addOrder`, {
                     method: 'post',
                     headers: {
                         'Content-Type' : 'application/json'
@@ -187,7 +188,7 @@ const Cart = (props) => {
     const fetchCartData = async () => {
         if(props.currUser !== '')
         {
-            fetch('/getcartdata', {
+            fetch(`${SERVER_URL}/getcartdata`, {
                 method: 'post',
                 headers: {
                     'Content-Type' : 'application/json'
@@ -217,7 +218,7 @@ const Cart = (props) => {
         return total;
     }
     const removeFromCart = async (id) => {
-        fetch('/removeFromCart', {
+        fetch(`${SERVER_URL}/removeFromCart`, {
             method: 'post',
             headers: {
                 'Content-Type' : 'application/json'

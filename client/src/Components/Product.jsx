@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { SERVER_URL } from '../config/keys';
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'
@@ -35,7 +36,7 @@ const Checkout = (props) => {
         fetchUserData();
     }, []);
     const fetchUserData = async () => {
-        fetch('/getUserData', {
+        fetch(`${SERVER_URL}/getUserData`, {
             method: 'post',
             headers: {
                 'Content-Type' : 'application/json'
@@ -55,7 +56,7 @@ const Checkout = (props) => {
         if((address === '')||(city === '')||(state === '')||(pin === '')||(!payChosen)) setIsEmpty(true);
         else
         {
-            fetch('/addOrder', {
+            fetch(`${SERVER_URL}/addOrder`, {
                 method: 'post',
                 headers: {
                     'Content-Type' : 'application/json'
@@ -170,7 +171,7 @@ const Product = (props) => {
     //console.log(product);
     let navigate = useNavigate();
     const addToCart = async () => {
-        fetch('/addToCart', {
+        fetch(`${SERVER_URL}/addToCart`, {
             method: 'post',
             headers: {
                 'Content-Type' : 'application/json'
