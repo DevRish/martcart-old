@@ -1,7 +1,8 @@
 const express = require("express");
 const chalk = require("chalk");
+const cors = require("cors");
 const { prodConfig } = require("./config/production");
-const { PORT } = require("./config/keys");
+const { PORT, CLIENT_URL } = require("./config/keys");
 const { connectDB } = require("./config/databaseConn");
 const { userRoutes } = require('./routes/userRoutes');
 const { authRoutes } = require('./routes/authRoutes');
@@ -12,6 +13,9 @@ const app = express();
 
 const connection = connectDB();
 
+app.use(cors({
+    origin: CLIENT_URL,
+}));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
