@@ -3,8 +3,8 @@ const { getCartData, addToCart, removeFromCart } = require("../controllers/cartC
 
 const router = Router();
 
-router.post('/getcartdata', getCartData )
-router.post('/addToCart', addToCart )
-router.post('/removeFromCart', removeFromCart )
+router.post('/getCart', getCartData )
+router.post('/addItem', addToCart )
+router.post('/removeItem', removeFromCart )
 
 module.exports.cartRoutes = router;

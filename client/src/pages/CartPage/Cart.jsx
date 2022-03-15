@@ -36,7 +36,7 @@ const CartCheckout = (props) => {
         fetchUserData();
     }, []);
     const fetchUserData = async () => {
-        fetch(`${SERVER_URL}/getUserData`, {
+        fetch(`${SERVER_URL}/user/getUser`, {
             method: 'post',
             headers: {
                 'Content-Type' : 'application/json'
@@ -61,7 +61,7 @@ const CartCheckout = (props) => {
             {
                 let item = props.cartdata[x];
                 //delItems.push(item.id);
-                fetch(`${SERVER_URL}/addOrder`, {
+                fetch(`${SERVER_URL}/order/addOrder`, {
                     method: 'post',
                     headers: {
                         'Content-Type' : 'application/json'
@@ -190,7 +190,7 @@ const Cart = (props) => {
     const fetchCartData = async () => {
         if(props.currUser !== '')
         {
-            fetch(`${SERVER_URL}/getcartdata`, {
+            fetch(`${SERVER_URL}/cart/getCart`, {
                 method: 'post',
                 headers: {
                     'Content-Type' : 'application/json'
@@ -220,7 +220,7 @@ const Cart = (props) => {
         return total;
     }
     const removeFromCart = async (id) => {
-        fetch(`${SERVER_URL}/removeFromCart`, {
+        fetch(`${SERVER_URL}/cart/removeItem`, {
             method: 'post',
             headers: {
                 'Content-Type' : 'application/json'

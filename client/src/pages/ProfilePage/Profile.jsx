@@ -17,7 +17,7 @@ const Profile = (props) => {
         fetchUserData();
     }, []);
     const fetchUserData = async () => {
-        fetch(`${SERVER_URL}/getUserData`, {
+        fetch(`${SERVER_URL}/user/getUser`, {
             method: 'post',
             headers: {
                 'Content-Type' : 'application/json'

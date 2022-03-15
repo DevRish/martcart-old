@@ -18,11 +18,10 @@ const SignIn = ({ setisLoggedIn, setcurrUser, setnavIndex }) => {
             <label htmlFor="password_signin">Password</label>
             <input type="password" id="password_signin" onChange={(e) => { setPassword(e.target.value) }} required />
             <button className="authbtn" onClick={ async () => { 
-                if((username==='')||(password===''))
-                setFailMsg('Please fill all the fields');
+                if((username==='')||(password==='')) setFailMsg('Please fill all the fields');
                 else
                 {
-                    fetch(`${SERVER_URL}/validate`, {
+                    fetch(`${SERVER_URL}/auth/login`, {
                         method: 'post',
                         body: JSON.stringify({
                             username: username,
@@ -31,15 +30,17 @@ const SignIn = ({ setisLoggedIn, setcurrUser, setnavIndex }) => {
                         headers: {
                             'Content-Type' : 'application/json'
                         }
-                    }).then(res=>res.text()).then(msg=>{
-                        //console.log(msg);
-                        if(msg === 'success')
+                    }).then(res=>res.json()).then(data => {
+                        if(data.hasOwnProperty('message'))
                         {
-                           setisLoggedIn(true);
-                           setcurrUser(username);
-                           navigate('/');
+                            setFailMsg(data.message);
                         }
-                        else setFailMsg(msg);
+                        else 
+                        {
+                            setisLoggedIn(true);
+                            setcurrUser(data.username);
+                            navigate('/');
+                        }
                     }).catch(err => console.log(err));
                 }
              }}>SignIn</button>

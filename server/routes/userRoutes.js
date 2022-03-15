@@ -3,6 +3,6 @@ const { getUserData } = require("../controllers/userController");
 
 const router = Router();
 
-router.post('/getUserData', getUserData )
+router.post('/getUser', getUserData )
 
 module.exports.userRoutes = router;

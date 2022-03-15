@@ -38,7 +38,7 @@ const SignUp = ({ setisLoggedIn, setcurrUser, setnavIndex }) => {
                 else if ( password !== cpassword) setFailMsg('Password and Confirm Password donot match');
                 else
                 {
-                    fetch(`${SERVER_URL}/adduser`, {
+                    fetch(`${SERVER_URL}/auth/signup`, {
                         method: 'post',
                         body: JSON.stringify({
                             firstname: firstname,
@@ -51,16 +51,23 @@ const SignUp = ({ setisLoggedIn, setcurrUser, setnavIndex }) => {
                         headers: {
                             'Content-Type' : 'application/json'
                         }
-                    }).then(res=>res.text()).then((msg) => 
+                    }).then(res=>res.json()).then(data => 
                     {
-                        if(msg === 'success')
+                        if(data.hasOwnProperty('errors'))
                         {
-                            //console.log('Successfully added user');
+                            for(let error in data.errors.errors)
+                            {
+                                setFailMsg(data.errors.errors[error]);
+                                break;
+                            }
+                        }
+                        else if(data.hasOwnProperty('message')) setFailMsg(data.message);
+                        else 
+                        {
                             setisLoggedIn(true);
-                            setcurrUser(username);
+                            setcurrUser(data.username);
                             navigate('/');
                         }
-                        else setFailMsg(msg);
                     }).catch(err => console.log(err));
                 }
              }}>SignUp</button>

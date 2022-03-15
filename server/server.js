@@ -19,10 +19,10 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
-app.use(userRoutes);
-app.use(authRoutes);
-app.use(cartRoutes);
-app.use(orderRoutes);
+app.use('/user', userRoutes);
+app.use('/auth', authRoutes);
+app.use('/cart', cartRoutes);
+app.use('/order', orderRoutes);
 
 app.get('/', (req,res) => {
     res.send('<h1>Server is running :)</h1><h3>Client and server were separated. <br> Please visit client at https://martcartdevrish.netlify.app/</h3>')
