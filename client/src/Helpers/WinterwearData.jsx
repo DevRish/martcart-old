@@ -1,15 +1,15 @@
-import Jacket from './../Assets/Winterwear/Jacket.png';
-import Muffler from './../Assets/Winterwear/WoolenMuffler.jpg';
-import Sweater from './../Assets/Winterwear/RayonSweater.jpg';
-import Hoodie from './../Assets/Winterwear/HoodieMen.jpeg';
-import JeansJacket from './../Assets/Winterwear/CKJeansJacket.jpeg';
-import TNSweater from './../Assets/Winterwear/CottonTurtleNeckSweater.jpg';
-import CapSet_2 from './../Assets/Winterwear/UnisexWoollenCapNeckWarmerPairSetOf2.jpeg';
-import WShawl from './../Assets/Winterwear/WomenShawlKashmiri.jpg';
-import WrapCoat from './../Assets/Winterwear/WrapCoatWomen.jpg';
-import Beanie_4 from './../Assets/Winterwear/WoollenBeanieCapSetOf4.jpg';
-import Sweatshirt from './../Assets/Winterwear/sweatshirt.jpg';
-import TrackSuit from './../Assets/Winterwear/TrackSuit.jpg';
+import Jacket from './../assets/Winterwear/Jacket.png';
+import Muffler from './../assets/Winterwear/WoolenMuffler.jpg';
+import Sweater from './../assets/Winterwear/RayonSweater.jpg';
+import Hoodie from './../assets/Winterwear/HoodieMen.jpeg';
+import JeansJacket from './../assets/Winterwear/CKJeansJacket.jpeg';
+import TNSweater from './../assets/Winterwear/CottonTurtleNeckSweater.jpg';
+import CapSet_2 from './../assets/Winterwear/UnisexWoollenCapNeckWarmerPairSetOf2.jpeg';
+import WShawl from './../assets/Winterwear/WomenShawlKashmiri.jpg';
+import WrapCoat from './../assets/Winterwear/WrapCoatWomen.jpg';
+import Beanie_4 from './../assets/Winterwear/WoollenBeanieCapSetOf4.jpg';
+import Sweatshirt from './../assets/Winterwear/sweatshirt.jpg';
+import TrackSuit from './../assets/Winterwear/TrackSuit.jpg';
 
 export const WinterwearData = [
     {

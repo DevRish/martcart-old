@@ -1,15 +1,15 @@
-import Television from './../Assets/Electronics/Television.png';
-import Realme from './../Assets/Electronics/Realme5Pro.png';
-import Samsung from './../Assets/Electronics/SamsungGalaxyA51.jpg';
-import HdTV from './../Assets/Electronics/SonyHDTV.jpg';
-import Asus from './../Assets/Electronics/AsusZenfoneMaxPro.jpg';
-import LenovoLegion from './../Assets/Electronics/LenovoLegion.jpg';
-import Lenovo from './../Assets/Electronics/LenovoK6Power.jpg';
-import HpPavilion from './../Assets/Electronics/HpPavilion.jpg';
-import DellInspiron from './../Assets/Electronics/DellInspiron.jpg';
-import Headphone from './../Assets/Electronics/Headphone.jpg';
-import Earphone from './../Assets/Electronics/Earphone.png';
-import Smartwatch from './../Assets/Electronics/Smartwatch.jpg';
+import Television from './../assets/Electronics/Television.png';
+import Realme from './../assets/Electronics/Realme5Pro.png';
+import Samsung from './../assets/Electronics/SamsungGalaxyA51.jpg';
+import HdTV from './../assets/Electronics/SonyHDTV.jpg';
+import Asus from './../assets/Electronics/AsusZenfoneMaxPro.jpg';
+import LenovoLegion from './../assets/Electronics/LenovoLegion.jpg';
+import Lenovo from './../assets/Electronics/LenovoK6Power.jpg';
+import HpPavilion from './../assets/Electronics/HpPavilion.jpg';
+import DellInspiron from './../assets/Electronics/DellInspiron.jpg';
+import Headphone from './../assets/Electronics/Headphone.jpg';
+import Earphone from './../assets/Electronics/Earphone.png';
+import Smartwatch from './../assets/Electronics/Smartwatch.jpg';
 
 export const ElectronicsData = [
     {

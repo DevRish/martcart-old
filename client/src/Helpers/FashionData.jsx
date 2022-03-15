@@ -1,15 +1,15 @@
-import Fas from './../Assets/Fashion/Tshirt.png';
-import Fas_2 from './../Assets/Fashion/AllenSolly_1.jpg';
-import Fas_3 from './../Assets/Fashion/PeterEng_1.jpg';
-import Fas_4 from './../Assets/Fashion/CalvinKlein_1.jpeg';
-import Fas_5 from './../Assets/Fashion/AllenSolly_4.jpg';
-import Fas_6 from './../Assets/Fashion/AllenSolly_5.jpg';
-import Fas_7 from './../Assets/Fashion/AllenSolly_6.jpeg';
-import Fas_8 from './../Assets/Fashion/Levis_1.jpg';
-import Fas_9 from './../Assets/Fashion/Nike_1.jpg';
-import Fas_10 from './../Assets/Fashion/Nike_2.jpg';
-import Fas_11 from './../Assets/Fashion/Puma_1.jpg';
-import Fas_12 from './../Assets/Fashion/Puma_2.jpg';
+import Fas from './../assets/Fashion/Tshirt.png';
+import Fas_2 from './../assets/Fashion/AllenSolly_1.jpg';
+import Fas_3 from './../assets/Fashion/PeterEng_1.jpg';
+import Fas_4 from './../assets/Fashion/CalvinKlein_1.jpeg';
+import Fas_5 from './../assets/Fashion/AllenSolly_4.jpg';
+import Fas_6 from './../assets/Fashion/AllenSolly_5.jpg';
+import Fas_7 from './../assets/Fashion/AllenSolly_6.jpeg';
+import Fas_8 from './../assets/Fashion/Levis_1.jpg';
+import Fas_9 from './../assets/Fashion/Nike_1.jpg';
+import Fas_10 from './../assets/Fashion/Nike_2.jpg';
+import Fas_11 from './../assets/Fashion/Puma_1.jpg';
+import Fas_12 from './../assets/Fashion/Puma_2.jpg';
 
 export const FashionData = [
     {

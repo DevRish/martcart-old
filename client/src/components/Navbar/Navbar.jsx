@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
-import { SERVER_URL } from '../config/keys';
+import { SERVER_URL } from './../../config/keys';
 import { Link } from 'react-router-dom';
-import './../Styles/Navbar.css';
+import './Navbar.css';
 
 const Navbar = (props) => {
     const [showMenu, setshowMenu] = useState(false);
@@ -23,7 +23,7 @@ const Navbar = (props) => {
     }
     return (
         <nav>
-            <div className="container">
+            <div className="navContainer">
                 <h1><i className="fas fa-shopping-cart"></i>  MartCart</h1>
                 <ul className={showMenu ? "show" : "hide"}>
                     <li><button className="closeMenu" onClick={() => setshowMenu(false)}><i className="fas fa-arrow-right"></i></button></li>

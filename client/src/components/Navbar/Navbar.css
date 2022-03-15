@@ -11,7 +11,7 @@ nav {
     box-shadow: 0 0.5rem 1rem gray;
 }
 
-nav .container {
+nav .navContainer {
     width: 100%;
     max-width: 100rem;
     display: flex;

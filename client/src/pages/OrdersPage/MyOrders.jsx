@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { SERVER_URL } from '../config/keys';
-import "./../Styles/MyOrders.css";
-//import { completed } from '../Helpers/TestSampleData/OrdersData';
-import { ProductData } from '../Helpers/ProductData';
-import Spinner from './Spinner';
+import { useState, useEffect } from 'react';
+import { SERVER_URL } from './../../config/keys';
+import { ProductData } from './../../helpers/ProductData';
+import Spinner from './../../components/Spinner/Spinner';
+import "./MyOrders.css";
 
 const MyOrders = (props) => {
     const [orderdata, setOrderData] = useState([]);
@@ -44,9 +43,9 @@ const MyOrders = (props) => {
         <>
         {
             (props.currUser !== '') ?
-            <div className="orderContainer">
+            <div className="container">
                 { (!isFetched) && <Spinner /> }
-                { (orderdata.length !== 0) && isFetched && <h1>🛍️ Your Orders: 🛍️</h1> }
+                { (orderdata.length !== 0) && isFetched && <h1 className='mainHeading'>🛍️ Your Orders: 🛍️</h1> }
                 {
                     ((orderdata.length !== 0) && isFetched) ?
                     orderdata.map((data, index) => {
@@ -70,7 +69,7 @@ const MyOrders = (props) => {
                     isFetched && <h2 style={{ textAlign: 'center', fontSize: '3rem', paddingTop: '2rem' }}>You have not ordered anything yet</h2>
                 }
             </div> :
-            <div className="orderContainer">
+            <div className="container">
                 <h2 style={{ textAlign: 'center', fontSize: '3rem', paddingTop: '2rem' }}>Please signin to view your orders</h2>
             </div>
         }

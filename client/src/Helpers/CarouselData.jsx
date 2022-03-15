@@ -1,8 +1,8 @@
-import Shoe from './../Assets/CaroImages/shoe.png';
-import Tshirt from './../Assets/CaroImages/Tshirt.png';
-import Jacket from './../Assets/CaroImages/Jacket.png';
-import Television from './../Assets/CaroImages/Television.png';
-import Realme from './../Assets/CaroImages/Realme.png';
+import Shoe from './../assets/CaroImages/shoe.png';
+import Tshirt from './../assets/CaroImages/Tshirt.png';
+import Jacket from './../assets/CaroImages/Jacket.png';
+import Television from './../assets/CaroImages/Television.png';
+import Realme from './../assets/CaroImages/Realme.png';
 
 export const caroData = [
     {

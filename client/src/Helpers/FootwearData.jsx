@@ -1,15 +1,15 @@
-import Shoe from './../Assets/Shoes/shoe.png';
-import Shoe_2 from './../Assets/Shoes/shoe_2.jpg';
-import Shoe_3 from './../Assets/Shoes/shoe_3.jpg';
-import Shoe_4 from './../Assets/Shoes/shoe_4.jpg';
-import Shoe_5 from './../Assets/Shoes/shoe_5.jpg';
-import Shoe_6 from './../Assets/Shoes/shoe_6.jpg';
-import Shoe_7 from './../Assets/Shoes/shoe_7.jpg';
-import Shoe_8 from './../Assets/Shoes/shoe_8.jpg';
-import Shoe_9 from './../Assets/Shoes/shoe_9.jpg';
-import Shoe_10 from './../Assets/Shoes/shoe_10.jpg';
-import Shoe_11 from './../Assets/Shoes/shoe_11.jpg';
-import Shoe_12 from './../Assets/Shoes/shoe_12.jpg';
+import Shoe from './../assets/Shoes/shoe.png';
+import Shoe_2 from './../assets/Shoes/shoe_2.jpg';
+import Shoe_3 from './../assets/Shoes/shoe_3.jpg';
+import Shoe_4 from './../assets/Shoes/shoe_4.jpg';
+import Shoe_5 from './../assets/Shoes/shoe_5.jpg';
+import Shoe_6 from './../assets/Shoes/shoe_6.jpg';
+import Shoe_7 from './../assets/Shoes/shoe_7.jpg';
+import Shoe_8 from './../assets/Shoes/shoe_8.jpg';
+import Shoe_9 from './../assets/Shoes/shoe_9.jpg';
+import Shoe_10 from './../assets/Shoes/shoe_10.jpg';
+import Shoe_11 from './../assets/Shoes/shoe_11.jpg';
+import Shoe_12 from './../assets/Shoes/shoe_12.jpg';
 
 export const FootwearData = [
     {

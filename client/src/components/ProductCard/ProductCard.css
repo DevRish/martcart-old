@@ -1,0 +1,30 @@
+.productCard {
+    border-radius: 10px;
+    /*border: 2px solid blue;*/
+    display: grid;
+    grid-template-rows: 6fr 4fr;
+    box-shadow: 0.5rem 0.5rem 1rem gray;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+.productCard:hover {
+    transform: scale(1.02);
+}
+.productCardImg {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 20rem;
+    /*border: 2px solid blue;*/
+}
+.productCardDesc {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.6rem;
+    /* border: 2px solid red; */
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+}

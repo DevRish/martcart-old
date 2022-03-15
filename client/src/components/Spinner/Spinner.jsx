@@ -1,10 +1,10 @@
 import React from 'react'
-import "./../Styles/MyOrders.css"
-import "./../Styles/Spinner.css"
+// import "./../Styles/MyOrders.css"
+import "./Spinner.css"
 
 const Spinner = () => {
     return (
-        <div className='orderContainer'>
+        <div className='container'>
             <div className="spinner"></div>
         </div>
     )

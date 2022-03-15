@@ -1,0 +1,23 @@
+.authNav {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 0.5rem solid #230033;
+    padding-top: 1rem;
+}
+.authNav button {
+    font-size: 3rem;
+    border-style: none;
+    padding: 1rem 0;
+    background-color: white;
+    color: #230033;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.authNav button:hover {
+    cursor: pointer;
+}
+.authNav .active {
+    background-color: #230033;
+    color: white;
+}

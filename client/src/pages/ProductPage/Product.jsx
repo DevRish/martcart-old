@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { SERVER_URL } from '../config/keys';
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'
-import { ProductData } from "./../Helpers/ProductData"
-import "./../Styles/MyOrders.css"
-import "./../Styles/Product.css"
-import Spinner from './Spinner'
-import Visa from './../Assets/visa.svg';
-import MasterCard from './../Assets/mastercard.svg';
-import Paypal from './../Assets/paypal.svg';
+
+import { SERVER_URL } from './../../config/keys';
+import Spinner from './../../components/Spinner/Spinner'
+import "./../OrdersPage/MyOrders.css"
+import "./Product.css"
+import { ProductData } from "./../../helpers/ProductData"
+import Visa from './../../assets/visa.svg';
+import MasterCard from './../../assets/mastercard.svg';
+import Paypal from './../../assets/paypal.svg';
 
 const stateList = ['Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh',
 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 
@@ -186,7 +187,7 @@ const Product = (props) => {
     }
     return (
         <>
-        <div className="orderContainer">
+        <div className="container">
             <div className="orderCard">
                 <div className="orderImg" style={{
                     backgroundImage: `url(${product.img})`

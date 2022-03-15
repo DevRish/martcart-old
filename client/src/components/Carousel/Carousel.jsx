@@ -1,7 +1,7 @@
 import {React, useState} from 'react';
 import { Link } from 'react-router-dom';
-import './../Styles/Carousel.css';
-import { caroData } from '../Helpers/CarouselData';
+import './Carousel.css';
+import { caroData } from './../../helpers/CarouselData';
 
 const Carousel = () => {
     const [currCaroEle, setcurrCaroEle] = useState(0);

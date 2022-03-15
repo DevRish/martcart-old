@@ -1,19 +1,15 @@
 import React, {useState} from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './Components/Navbar';
-import Carousel from './Components/Carousel';
-import Collection from './Components/Collection';
-import Footwear from './Components/Footwear';
-import Fashion from './Components/Fashion';
-import Winterwear from './Components/Winterwear';
-import Electronics from './Components/Electronics';
-import MyOrders from './Components/MyOrders';
-import AuthPage from './Components/AuthPage';
-import Cart from './Components/Cart';
-import Profile from './Components/Profile';
-import './App.css';
-import Product from './Components/Product';
-import Footer from './Components/Footer'
+import Navbar from './components/Navbar/Navbar'
+import Home from './pages/HomePage/Home'
+import CategoryPage from './pages/CategoryPage/CategoryPage'
+import Product from './pages/ProductPage/Product'
+import MyOrders from './pages/OrdersPage/MyOrders'
+import AuthPage from './pages/AuthPage/AuthPage'
+import Profile from './pages/ProfilePage/Profile'
+import Cart from './pages/CartPage/Cart'
+import Footer from './components/Footer/Footer'
+import './App.css'
 
 const App = () => {
     const [isLoggedIn, setisLoggedIn] = useState(false);
@@ -24,16 +20,11 @@ const App = () => {
         <BrowserRouter>
             <Navbar isLoggedIn={isLoggedIn} currUser={currUser} cartCount={cartCount} setCartCount={setCartCount} />
             <Routes>
-                <Route path="/" exact element={
-                    <>
-                        <Carousel />
-                        <Collection />
-                    </>
-                } />
-                <Route path="/footwear" element={<Footwear />} />
-                <Route path="/fashion" element={<Fashion />} />
-                <Route path="/winterwear" element={<Winterwear />} />
-                <Route path="/electronics" element={<Electronics />} />
+                <Route path="/" exact element={<Home />} />
+                <Route path="/footwear" element={<CategoryPage category={'footwear'} />} />
+                <Route path="/fashion" element={<CategoryPage category={'fashion'} />} />
+                <Route path="/winterwear" element={<CategoryPage category={'winterwear'} />} />
+                <Route path="/electronics" element={<CategoryPage category={'electronics'} />} />
                 <Route path="/product/:id" element={<Product currUser={currUser} setCartCount={setCartCount} cartCount={cartCount} />} />
                 <Route path="/myorders" element={<MyOrders currUser={currUser} />} />
                 <Route path="/authpage" element={<AuthPage setisLoggedIn={setisLoggedIn} setcurrUser={setcurrUser} />} />

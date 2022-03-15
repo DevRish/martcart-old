@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { SERVER_URL } from '../config/keys';
-import "./../Styles/Cart.css";
-import "./../Styles/Product.css";
-//import { cartdata } from '../Helpers/TestSampleData/CartData';
-import { ProductData } from '../Helpers/ProductData';
-import Spinner from './Spinner';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
-import Visa from './../Assets/visa.svg';
-import MasterCard from './../Assets/mastercard.svg';
-import Paypal from './../Assets/paypal.svg';
+
+import { SERVER_URL } from './../../config/keys';
+import Spinner from './../../components/Spinner/Spinner';
+import "./Cart.css";
+import "./../ProductPage/Product.css";
+
+//import { cartdata } from '../Helpers/TestSampleData/CartData';
+import { ProductData } from './../../helpers/ProductData';
+import Visa from './../../assets/visa.svg';
+import MasterCard from './../../assets/mastercard.svg';
+import Paypal from './../../assets/paypal.svg';
 
 const stateList = ['Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh',
 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 
