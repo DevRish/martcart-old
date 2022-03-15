@@ -20,6 +20,10 @@ app.use(authRoutes);
 app.use(cartRoutes);
 app.use(orderRoutes);
 
+app.get('/', (req,res) => {
+    res.send('<h1>Server is running :)</h1><h3>Client and server were separated. <br> Please visit client at https://martcartdevrish.netlify.app/</h3>')
+})
+
 prodConfig(app); // for production
  
 app.listen(PORT, () => console.log(chalk.greenBright(`[+] Server running on port ${PORT}`)) );
