@@ -13,7 +13,7 @@ const AuthPage = ({ setisLoggedIn, setcurrUser }) => {
                 <button className={ (navIndex === 2) ? "active" : "" }
                     onClick={ () => { setnavIndex(2) }}>SignUp</button>
             </div>
-            { (navIndex === 1) && <SignIn setnavIndex={setnavIndex} setisLoggedIn={setisLoggedIn} setcurrUser={setcurrUser} />}
+            { (navIndex === 1) && <SignIn setnavIndex={setnavIndex} />}
             { (navIndex === 2) && <SignUp setnavIndex={setnavIndex} setisLoggedIn={setisLoggedIn} setcurrUser={setcurrUser} />}
         </div>
     )

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { SERVER_URL } from './../../config/keys'
 import './AuthComp.css'
 
-const SignIn = ({ setisLoggedIn, setcurrUser, setnavIndex }) => {
+const SignIn = ({ setnavIndex }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [failmsg, setFailMsg] = useState('');
@@ -21,27 +21,40 @@ const SignIn = ({ setisLoggedIn, setcurrUser, setnavIndex }) => {
                 if((username==='')||(password==='')) setFailMsg('Please fill all the fields');
                 else
                 {
-                    fetch(`${SERVER_URL}/auth/login`, {
-                        method: 'post',
-                        body: JSON.stringify({
-                            username: username,
-                            password: password
-                        }),
-                        headers: {
-                            'Content-Type' : 'application/json'
-                        }
-                    }).then(res=>res.json()).then(data => {
-                        if(data.hasOwnProperty('message'))
+                    try {
+                        let res = await fetch(`/auth/login`, {
+                            method: 'post',
+                            body: JSON.stringify({
+                                username: username,
+                                password: password
+                            }),
+                            headers: {
+                                'Content-Type' : 'application/json'
+                            }
+                        }) 
+                        // console.log(res);
+                        if(res.status === 200) window.location = '/'; // I need to reload to re-render everything, navigate won't re-render
+                        else
                         {
+                            let data = await res.json();
+                            // console.log(data);
                             setFailMsg(data.message);
                         }
-                        else 
-                        {
-                            setisLoggedIn(true);
-                            setcurrUser(data.username);
-                            navigate('/');
-                        }
-                    }).catch(err => console.log(err));
+                    } catch (err) {
+                        console.log(err);
+                    }
+                    // then(res=>res.json()).then(data => {
+                    //     if(data.hasOwnProperty('message'))
+                    //     {
+                    //         setFailMsg(data.message);
+                    //     }
+                    //     else 
+                    //     {
+                    //         setisLoggedIn(true);
+                    //         setcurrUser(data.username);
+                    //         navigate('/');
+                    //     }
+                    // }).catch(err => console.log(err));
                 }
              }}>SignIn</button>
             <span>

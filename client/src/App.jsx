@@ -15,6 +15,20 @@ const App = () => {
     const [isLoggedIn, setisLoggedIn] = useState(false);
     const [currUser, setcurrUser] = useState('');
     const [cartCount, setCartCount] = useState(0);
+
+    const checkLoggedIn = async () => {
+        fetch('/auth/checkLogged').then(res => res.json()).then(data => {
+            if(data.user !== undefined) 
+            {
+                setisLoggedIn(true);
+                setcurrUser(data.user.username);
+            }
+        })
+        console.log('isLoggedIn : '+isLoggedIn);
+    }
+
+    checkLoggedIn();
+
     return(
         <div style={{ minHeight: "100vh", position: "relative", paddingBottom: "8vh" }}>
         <BrowserRouter>
@@ -29,7 +43,7 @@ const App = () => {
                 <Route path="/myorders" element={<MyOrders currUser={currUser} />} />
                 <Route path="/authpage" element={<AuthPage setisLoggedIn={setisLoggedIn} setcurrUser={setcurrUser} />} />
                 <Route path="/cart" element={<Cart currUser={currUser} setCartCount={setCartCount} cartCount={cartCount} />} />
-                <Route path="/profile" element={<Profile currUser={currUser} setisLoggedIn={setisLoggedIn} setcurrUser={setcurrUser} />} />
+                <Route path="/profile" element={<Profile currUser={currUser} />} />
             </Routes>
             <Footer />
         </BrowserRouter>

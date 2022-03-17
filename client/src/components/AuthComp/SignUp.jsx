@@ -38,37 +38,57 @@ const SignUp = ({ setisLoggedIn, setcurrUser, setnavIndex }) => {
                 else if ( password !== cpassword) setFailMsg('Password and Confirm Password donot match');
                 else
                 {
-                    fetch(`${SERVER_URL}/auth/signup`, {
-                        method: 'post',
-                        body: JSON.stringify({
-                            firstname: firstname,
-                            lastname: lastname,
-                            username: username,
-                            phone: phone,
-                            email: email,
-                            password: password
-                        }),
-                        headers: {
-                            'Content-Type' : 'application/json'
-                        }
-                    }).then(res=>res.json()).then(data => 
-                    {
-                        if(data.hasOwnProperty('errors'))
-                        {
-                            for(let error in data.errors.errors)
-                            {
-                                setFailMsg(data.errors.errors[error]);
-                                break;
+                    try {
+                        const res = await fetch(`/auth/signup`, {
+                            method: 'post',
+                            body: JSON.stringify({
+                                firstname: firstname,
+                                lastname: lastname,
+                                username: username,
+                                phone: phone,
+                                email: email,
+                                password: password
+                            }),
+                            headers: {
+                                'Content-Type' : 'application/json'
                             }
-                        }
-                        else if(data.hasOwnProperty('message')) setFailMsg(data.message);
-                        else 
+                        })
+                        if(res.status === 200) window.location = '/';
+                        else
                         {
-                            setisLoggedIn(true);
-                            setcurrUser(data.username);
-                            navigate('/');
+                            let data = await res.json();
+                            // console.log(data);
+                            if(data.hasOwnProperty('errors'))
+                            {
+                                for(let error in data.errors.errors)
+                                {
+                                    setFailMsg(data.errors.errors[error]);
+                                    break;
+                                }
+                            }
+                            else if(data.hasOwnProperty('message')) setFailMsg(data.message);
                         }
-                    }).catch(err => console.log(err));
+                    } catch (err) {
+                        console.log(err);
+                    }
+                    // then(res=>res.json()).then(data => 
+                    // {
+                    //     if(data.hasOwnProperty('errors'))
+                    //     {
+                    //         for(let error in data.errors.errors)
+                    //         {
+                    //             setFailMsg(data.errors.errors[error]);
+                    //             break;
+                    //         }
+                    //     }
+                    //     else if(data.hasOwnProperty('message')) setFailMsg(data.message);
+                    //     else 
+                    //     {
+                    //         setisLoggedIn(true);
+                    //         setcurrUser(data.username);
+                    //         navigate('/');
+                    //     }
+                    // }).catch(err => console.log(err));
                 }
              }}>SignUp</button>
             <span>

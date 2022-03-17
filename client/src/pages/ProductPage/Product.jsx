@@ -37,7 +37,7 @@ const Checkout = (props) => {
         fetchUserData();
     }, []);
     const fetchUserData = async () => {
-        fetch(`${SERVER_URL}/user/getUser`, {
+        fetch(`/user/getUser`, {
             method: 'post',
             headers: {
                 'Content-Type' : 'application/json'
@@ -57,7 +57,7 @@ const Checkout = (props) => {
         if((address === '')||(city === '')||(state === '')||(pin === '')||(!payChosen)) setIsEmpty(true);
         else
         {
-            fetch(`${SERVER_URL}/order/addOrder`, {
+            fetch(`/order/addOrder`, {
                 method: 'post',
                 headers: {
                     'Content-Type' : 'application/json'
@@ -172,7 +172,7 @@ const Product = (props) => {
     //console.log(product);
     let navigate = useNavigate();
     const addToCart = async () => {
-        fetch(`${SERVER_URL}/cart/addItem`, {
+        fetch(`/cart/addItem`, {
             method: 'post',
             headers: {
                 'Content-Type' : 'application/json'

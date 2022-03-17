@@ -1,10 +1,12 @@
 const bcrypt = require('bcryptjs');
 const validator = require('validatorjs');
+const passport = require('passport');
 const chalk = require("chalk");
 const { User } = require('./../models/UserModel');
+const { CLIENT_URL } = require('./../config/keys');
 const { userRules, userErrors } = require('./../validations/userValidation');
 
-module.exports.signupController = async (req, res) => {
+module.exports.signupController = async (req, res, next) => {
     let newUser = req.body;
     try 
     {
@@ -24,7 +26,9 @@ module.exports.signupController = async (req, res) => {
         // Save user
         const savedUser = await User.create(newUser); // savedUser is just newUser with an extra _id attribute, given by the database
         console.log(chalk.greenBright(`[+] Account of ${savedUser.username} was created`));
-        res.status(200).json(savedUser);
+        // res.status(200).json(savedUser);
+        // res.redirect('/login');
+        next();
 
     } catch (err) 
     {
@@ -33,25 +37,64 @@ module.exports.signupController = async (req, res) => {
     }
 }
 
-module.exports.loginController = async (req, res) => {
-    let user = req.body;
-    try
-    {
-        // Check existing
-        const existingUser = await User.findOne({username: user.username});
-        if(!existingUser) return res.status(404).json({ message : "User doesn't exists" });
+module.exports.loginController = async (req, res, next) => {
+    // let user = req.body;
+    // try
+    // {
+    //     // Check existing
+    //     const existingUser = await User.findOne({username: user.username});
+    //     if(!existingUser) return res.status(404).json({ message : "User doesn't exists" });
 
-        // Decrypt and compare password
-        const isMatching = await bcrypt.compare(user.password, existingUser.password);
-        if(!isMatching) return res.status(404).json({ message : "Password not matching" });
+    //     // Decrypt and compare password
+    //     const isMatching = await bcrypt.compare(user.password, existingUser.password);
+    //     if(!isMatching) return res.status(404).json({ message : "Password not matching" });
 
-        // Send back user's data on successful login
-        console.log(chalk.greenBright(`[+] ${existingUser.username} logged in successfully`))
-        res.status(200).json(existingUser);
-    }
-    catch(err)
-    {
-        console.log(chalk.redBright("[-] Error occured in login: \n" + err));
-        res.status(400).json({ message: `Something went wrong. Please try again.` });
-    }
+    //     // Send back user's data on successful login
+    //     console.log(chalk.greenBright(`[+] ${existingUser.username} logged in successfully`))
+    //     res.status(200).json(existingUser);
+    // }
+    // catch(err)
+    // {
+    //     console.log(chalk.redBright("[-] Error occured in login: \n" + err));
+    //     res.status(400).json({ message: `Something went wrong. Please try again.` });
+    // }
+    passport.authenticate('local', (err, user, info) => {
+        if(err) res.status(404).json({ message: err })
+        else 
+        {
+            console.log('In controller, no errors, user is : '+user);
+            // res.status(200).json(user); // won't work, we need to send cookies in response, here we end response without that
+            req.logIn(user, (err) => {
+                console.log('callback after logging in')
+                if(err) 
+                {
+                    console.log('Error in logIn : '+err)
+                    return next(err);
+                }
+                res.status(200).redirect(CLIENT_URL+'/');
+                return next();
+            })
+        }
+    })(req, res, next)
 }
+
+module.exports.checkLogged = (req,res) => {
+    // console.log("req.user is " + req.user);
+    res.json({ user: req.user });
+}
+
+module.exports.logoutController = (req,res) => {
+    req.logout(); // passport logout
+
+    // destroy session cookie
+    req.session.destroy((err) => {
+        if (!err) {
+            res.status(200).clearCookie('connect.sid').redirect(CLIENT_URL+'/');
+            console.log('Successfully logged out');
+        } else {
+            console.log(err);
+        }
+    });
+}
+
+module.exports.bcrypt = bcrypt; // I am still not sure if salt will be retained if I create new instance, so using this instance itself

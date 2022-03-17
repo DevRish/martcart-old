@@ -1,9 +1,14 @@
 const { Router } = require("express");
-const { signupController, loginController } = require("../controllers/authController");
+const passport = require("passport");
+const { CLIENT_URL } = require("../config/keys");
+const { signupController, loginController, checkLogged, logoutController } = require("../controllers/authController");
 
 const router = Router();
 
-router.post('/signup', signupController );
+router.get('/checkLogged', checkLogged );
 router.post('/login', loginController );
+router.post('/logout', logoutController );
+// router.post('/login', passport.authenticate('local', { successRedirect: `${CLIENT_URL}` }) );
+router.post('/signup', signupController, loginController );
 
 module.exports.authRoutes = router;
