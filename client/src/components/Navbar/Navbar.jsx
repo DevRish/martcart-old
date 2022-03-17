@@ -11,7 +11,7 @@ const Navbar = (props) => {
     const fetchCartCount = async () => {
         if(props.currUser !== '')
         {
-            fetch(`/cart/getCart`, {
+            fetch(`${SERVER_URL}/cart/getCart`, {
                 method: 'post',
                 headers: {
                     'Content-Type' : 'application/json'

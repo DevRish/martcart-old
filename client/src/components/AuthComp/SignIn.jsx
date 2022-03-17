@@ -22,7 +22,7 @@ const SignIn = ({ setnavIndex }) => {
                 else
                 {
                     try {
-                        let res = await fetch(`/auth/login`, {
+                        let res = await fetch(`${SERVER_URL}/auth/login`, {
                             method: 'post',
                             body: JSON.stringify({
                                 username: username,

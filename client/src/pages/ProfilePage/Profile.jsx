@@ -12,7 +12,7 @@ const Profile = ({ currUser }) => {
         fetchUserData();
     }, []);
     const fetchUserData = async () => {
-        fetch(`/user/getUser`, {
+        fetch(`${SERVER_URL}/user/getUser`, {
             method: 'post',
             headers: {
                 'Content-Type' : 'application/json'
@@ -27,7 +27,7 @@ const Profile = ({ currUser }) => {
     }
 
     const logout = async () => {
-        const res = await fetch('/auth/logout', {
+        const res = await fetch(`${SERVER_URL}/auth/logout`, {
             method: 'POST'
         })
         if(res.status === 200) window.location = '/';
