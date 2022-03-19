@@ -39,10 +39,10 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/user', userRoutes);
-app.use('/auth', authRoutes);
-app.use('/cart', cartRoutes);
-app.use('/order', orderRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/order', orderRoutes);
 
 app.get('/', (req,res) => {
     res.send('<h1>Server is running :)</h1><h3>Client and server were separated. <br> Please visit client at https://martcartdevrish.netlify.app/</h3>')

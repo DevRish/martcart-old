@@ -39,7 +39,7 @@ const SignUp = ({ setisLoggedIn, setcurrUser, setnavIndex }) => {
                 else
                 {
                     try {
-                        const res = await fetch(`${SERVER_URL}/auth/signup`, {
+                        const res = await fetch(`/api/auth/signup`, {
                             method: 'post',
                             body: JSON.stringify({
                                 firstname: firstname,

@@ -13,7 +13,7 @@ const MyOrders = (props) => {
     const fetchOrderData = async () => {
         if(props.currUser !== '')
         {
-            fetch(`${SERVER_URL}/order/getorderdata`, {
+            fetch(`/api/order/getorderdata`, {
                 method: 'post',
                 headers: {
                     'Content-Type' : 'application/json'

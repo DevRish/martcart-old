@@ -17,7 +17,7 @@ const App = () => {
     const [cartCount, setCartCount] = useState(0);
 
     const checkLoggedIn = async () => {
-        fetch('/auth/checkLogged').then(res => res.json()).then(data => {
+        fetch('/api/auth/checkLogged').then(res => res.json()).then(data => {
             if(data.user !== undefined) 
             {
                 setisLoggedIn(true);
