@@ -9,7 +9,7 @@
     display: flex;
     justify-content: space-between;
     padding: 1rem 2rem;
-    background-color: #230033;
+    background-color: var(--primary);
     border-radius: 10px;
 }
 .cartContainer h1 {
@@ -19,7 +19,7 @@
 .cartContainer button{
     font-size: 2rem;
     border: none;
-    color: #230033;
+    color: var(--primary);
     background-color: white;
     border-radius: 5px;
     display: grid;
@@ -34,7 +34,7 @@
     border-radius: 10px;
     display: grid;
     grid-template-columns: 3fr 7fr;
-    background-color: rgb(231, 231, 231);
+    background-color: var(--light-grey);
     margin-top: 2rem;
     overflow: hidden;
     box-shadow: 0.3rem 1rem 1rem gray;
@@ -52,7 +52,7 @@
     padding: 2rem;
     border-style: none;
     color: white;
-    background-color: #230033;
+    background-color: var(--primary);
     border-radius: 10px;
     width: fit-content;
     cursor: pointer;

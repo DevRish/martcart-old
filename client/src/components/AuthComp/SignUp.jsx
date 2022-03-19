@@ -15,6 +15,7 @@ const SignUp = ({ setisLoggedIn, setcurrUser, setnavIndex }) => {
     let navigate = useNavigate();
     return (
         <div className="authcomp">
+            <h1 className='authTitle'>Welcome aboard!</h1>
             <label htmlFor="fname_signup">First Name</label>
             <input type="text" id="fname_signup" onChange={(e) => { setFirstname(e.target.value) }} required/>
             <label htmlFor="lname_signup">Last Name</label>
@@ -91,10 +92,10 @@ const SignUp = ({ setisLoggedIn, setcurrUser, setnavIndex }) => {
                     // }).catch(err => console.log(err));
                 }
              }}>SignUp</button>
-            <span>
+            <div className='authToggle'>
                 <p style={{ marginRight: "1rem" }}>Already have an account?</p>
                 <p style={{ cursor: "pointer", color:"#230033" }} onClick={ () => { setnavIndex(1) } }><b> SignIn </b></p>
-            </span>
+            </div>
         </div>
     )
 }

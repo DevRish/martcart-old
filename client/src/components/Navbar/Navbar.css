@@ -23,7 +23,7 @@ nav .navContainer {
 nav h1{
     font-size: 4rem;
     padding: 1rem 1rem;
-    color: rgb(49, 0, 71);
+    color: var(--primary);
 }
 
 nav ul {
@@ -45,19 +45,17 @@ nav li {
 }
 
 nav li:hover {
-    border-bottom: 0.5rem solid rgb(85, 0, 124);
-    /*border-left: 1px solid rgb(85, 0, 124);
-    border-right: 1px solid rgb(85, 0, 124);*/
+    border-bottom: 0.5rem solid var(--secondary);
 }
 
 nav a {
     padding: 0.5rem 2rem;
-    color: rgb(49, 0, 71);;
+    color: var(--primary);
     text-decoration: none;
 }
 
 .cartlogo {
-    background-color: rgb(85, 0, 124);
+    background-color: var(--secondary);
     color: white;
     border-radius: 1rem;
     margin-left: 1rem;
@@ -109,7 +107,7 @@ nav a {
         width: 100%;
         height: fit-content;
         padding: 1.5rem 2rem;
-        border-bottom: 2px solid rgb(131, 131, 131);
+        border-bottom: 2px solid var(--light-grey);
         display: flex;
         justify-content: center;
     }

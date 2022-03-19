@@ -2,7 +2,7 @@
     border-radius: 10px;
     display: grid;
     grid-template-columns: 3fr 7fr;
-    background-color: rgb(231, 231, 231);
+    background-color: var(--light-grey);
     margin-top: 2rem;
     overflow: hidden;
     box-shadow: 0.3rem 1rem 1rem gray;

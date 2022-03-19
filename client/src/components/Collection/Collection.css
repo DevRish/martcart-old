@@ -2,7 +2,7 @@
     border-radius: 10px;
     display: grid;
     place-items: center;
-    background-color: rgb(221, 221, 221);
+    background-color: var(--light-grey);
 }
 .categoryCardLast a{
     text-decoration: none;
@@ -12,5 +12,5 @@
     height: 4rem;
     width: 4rem;
     border-radius: 50%;
-    background-color: #230033;
+    background-color: var(--primary);
 }

@@ -1,23 +1,26 @@
-.authNav {
-    width: 100%;
+.auth {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    border-bottom: 0.5rem solid #230033;
-    padding-top: 1rem;
+    /* border: 2px solid black; */
+    padding: 2rem 0;
 }
-.authNav button {
-    font-size: 3rem;
-    border-style: none;
-    padding: 1rem 0;
-    background-color: white;
-    color: #230033;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+
+.authImg img {
+    width: 80%;
+    display: block;
+    margin: 5rem auto;
 }
-.authNav button:hover {
-    cursor: pointer;
+
+.authForm {
+    padding: 4rem 0;
+    /* border: 2px solid green; */
 }
-.authNav .active {
-    background-color: #230033;
-    color: white;
+
+@media (max-width: 745px) {
+    .auth {
+        display: block;
+    }
+    .authImg img {
+        margin: auto;
+    }
 }

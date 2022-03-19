@@ -1,58 +1,47 @@
 .authcomp {
-    padding: 2rem 2rem;
-    width: 40%;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    margin-left: 30%;
-    display: flex;
-    flex-direction: column;
-    border: 2px solid black;
-    border-radius: 10px;
-    box-shadow: 1rem 1rem 1rem gray;
-}
-.authbtn {
+    width: 80%;
     margin: auto;
-    width: fit-content;
-    font-size: 3rem;
-    border-style: none;
-    color: white;
-    background-color: #230033;
-    border-radius: 10px;
-    padding: 1rem 2rem;
-    cursor: pointer;
-    margin: 1rem auto;
+    /* border: 2px solid salmon; */
 }
-.authbtn:hover {
-    transform: scale(1.1);
+.authTitle {
+    margin-bottom: 1.5rem;
 }
 .authcomp label {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    /*border: 2px solid black;*/
+    font-size: 1.4rem;
+    font-weight: bold;
 }
 .authcomp input {
     border-style: none;
+    border: 2px solid var(--primary);
+    border-radius: 0.5rem;
     width: 100%;
-    height: 3rem;
-    font-size: 2rem;
-    border-bottom: 2px solid #230033;
+    height: 3.5rem;
+    font-size: 1.5rem;
+    padding: 0.5rem;
     margin-bottom: 3rem;
 }
 .authcomp input:focus {
     outline: none;
-    border-bottom: 2px solid #230033;
 }
-.authcomp span {
+.authbtn {
+    width: 100%;
+    font-size: 2rem;
+    border-style: none;
+    color: white;
+    background-color: var(--primary);
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 1rem 0;
+}
+.authToggle {
     font-size: 1.5rem;
     width: 100%;
     display: flex;
-    justify-content: center;
-    margin: 1rem 0;
+    margin: 2rem 0;
 }
 
 @media (max-width: 745px) {
     .authcomp {
-        margin-left: 5%;
         width: 90%;
     }
 }

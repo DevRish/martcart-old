@@ -1,3 +1,9 @@
+:root {
+    --primary: #230033; /* rgb(35, 0, 51) */
+    --secondary: #55007c; /* rgb(85, 0, 124) */
+    --light-grey: #e7e7e7; /* rgb(231, 231, 231) */
+}
+
 /* utility classes */
 
 .container {
