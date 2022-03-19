@@ -1,14 +1,11 @@
-import { createProxyMiddleware } from "http-proxy-middleware";
-import { SERVER_URL } from "./config/keys.jsx"
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
-function Proxy(app) {
+module.exports = function(app) {
   app.use(
-    "/",
+    '/api/',
     createProxyMiddleware({
-      target: SERVER_URL ,
+      target: process.env.REACT_APP_SERVER_URL || 'http://localhost:5000',
       changeOrigin: true,
     })
   );
-}
-
-export default Proxy;
+};
