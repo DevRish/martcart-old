@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { SERVER_URL } from './../../config/keys';
+import { getUserData } from '../../api/user';
 import "./Profile.css";
 import Spinner from './../../components/Spinner/Spinner';
+import { authLogout } from '../../api/auth';
 
 const Profile = ({ currUser }) => {
     const [userData, setUserData] = useState({});
@@ -12,25 +13,16 @@ const Profile = ({ currUser }) => {
         fetchUserData();
     }, []);
     const fetchUserData = async () => {
-        fetch(`/api/user/getUser`, {
-            method: 'post',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                currUser: currUser
-            })
-        }).then(res=>res.json()).then(data => {
-            setUserData(data)
-            setIsFetched(true);
-        })
+        const data = await getUserData({
+            currUser: currUser
+        });
+        setUserData(data);
+        setIsFetched(true);
     }
 
     const logout = async () => {
-        const res = await fetch(`/api/auth/logout`, {
-            method: 'POST'
-        })
-        if(res.status === 200) window.location = '/';
+        const {isLoggedOut} = await authLogout();
+        if(isLoggedOut) window.location = '/';
     }
 
     return (

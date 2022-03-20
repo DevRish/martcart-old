@@ -10,24 +10,21 @@ import Profile from './pages/ProfilePage/Profile'
 import Cart from './pages/CartPage/Cart'
 import Footer from './components/Footer/Footer'
 import './App.css'
+import { checkLoggedIn } from './api/auth';
 
 const App = () => {
     const [isLoggedIn, setisLoggedIn] = useState(false);
     const [currUser, setcurrUser] = useState('');
     const [cartCount, setCartCount] = useState(0);
 
-    const checkLoggedIn = async () => {
-        fetch('/api/auth/checkLogged').then(res => res.json()).then(data => {
-            if(data.user !== undefined) 
-            {
-                setisLoggedIn(true);
-                setcurrUser(data.user.username);
-            }
-        })
+    const checkAuth = async () => {
+        const data = await checkLoggedIn();
+        setisLoggedIn(data.isLoggedIn);
+        setcurrUser(data.username);
         console.log('isLoggedIn : '+isLoggedIn);
     }
 
-    checkLoggedIn();
+    checkAuth();
 
     return(
         <div style={{ minHeight: "100vh", position: "relative", paddingBottom: "8vh" }}>

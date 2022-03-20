@@ -1,13 +1,26 @@
 import {useState} from 'react'
-import { useNavigate } from 'react-router-dom'
-import { SERVER_URL } from './../../config/keys'
+import { authLogIn } from '../../api/auth';
 import './AuthComp.css'
 
 const SignIn = ({ setnavIndex }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [failmsg, setFailMsg] = useState('');
-    let navigate = useNavigate();
+
+    const handleLogIn = async () => { 
+       if((username==='')||(password==='')) setFailMsg('Please fill all the fields');
+       else
+       {
+            const credentials = {
+                username: username,
+                password: password
+            }
+            const { isSuccess, error } = await authLogIn(credentials);
+            if(isSuccess) window.location = '/'; // need to reload to re render everything, now that I have the cookie
+            else setFailMsg(error);
+       }
+    }
+
     return (
         <div className="authcomp">
             <h1 className='authTitle'>Welcome back!</h1>
@@ -18,46 +31,7 @@ const SignIn = ({ setnavIndex }) => {
             {
                 (failmsg !== '') && <p style={{ color: 'red', fontSize: '1.5rem', marginBottom: '1rem' }}>{failmsg}</p>
             }
-            <button className="authbtn" onClick={ async () => { 
-                if((username==='')||(password==='')) setFailMsg('Please fill all the fields');
-                else
-                {
-                    try {
-                        let res = await fetch(`/api/auth/login`, {
-                            method: 'post',
-                            body: JSON.stringify({
-                                username: username,
-                                password: password
-                            }),
-                            headers: {
-                                'Content-Type' : 'application/json'
-                            }
-                        }) 
-                        // console.log(res);
-                        if(res.status === 200) window.location = '/'; // I need to reload to re-render everything, navigate won't re-render
-                        else
-                        {
-                            let data = await res.json();
-                            // console.log(data);
-                            setFailMsg(data.message);
-                        }
-                    } catch (err) {
-                        console.log(err);
-                    }
-                    // then(res=>res.json()).then(data => {
-                    //     if(data.hasOwnProperty('message'))
-                    //     {
-                    //         setFailMsg(data.message);
-                    //     }
-                    //     else 
-                    //     {
-                    //         setisLoggedIn(true);
-                    //         setcurrUser(data.username);
-                    //         navigate('/');
-                    //     }
-                    // }).catch(err => console.log(err));
-                }
-             }}>SignIn</button>
+            <button className="authbtn" onClick={ handleLogIn }>LogIn</button>
             <div className='authToggle'>
                 <p style={{ marginRight: "1rem" }}>Don't have an account?</p>
                 <p style={{ cursor: "pointer", color:"#230033" }} onClick={ () => { setnavIndex(2) } }><b> SignUp </b></p>

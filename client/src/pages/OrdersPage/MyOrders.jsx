@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { SERVER_URL } from './../../config/keys';
-import { ProductData } from './../../helpers/ProductData';
 import Spinner from './../../components/Spinner/Spinner';
+import { getOrderData } from '../../api/order';
 import "./MyOrders.css";
 
 const MyOrders = (props) => {
@@ -13,30 +12,9 @@ const MyOrders = (props) => {
     const fetchOrderData = async () => {
         if(props.currUser !== '')
         {
-            fetch(`/api/order/getorderdata`, {
-                method: 'post',
-                headers: {
-                    'Content-Type' : 'application/json'
-                },
-                body: JSON.stringify({ currUser: props.currUser })
-            }).then(res=>res.json()).then(data=>{
-                //console.log('data.cart in then: ');
-                //console.log(data.cart);
-                let dataArr = [];
-                for(let x in data.orders)
-                {
-                    //console.log(data.cart[x]);
-                    //setCartData(cartdata.concat(ProductData.find(obj => { return obj.id === data.cart[x]})));
-                    let product = ProductData.find(obj => { return obj.id === data.orders[x].prodid});
-                    //console.log(product);
-                    let order = {...product, ...(data.orders[x])}
-                    //console.log(order);
-                    dataArr.push(order)
-                }
-                //console.log(dataArr);
-                setOrderData(dataArr.reverse());
-                setIsFetched(true);
-            })
+            const data = await getOrderData(props.currUser);
+            setOrderData(data);
+            setIsFetched(true);
         }
     }
     return (
