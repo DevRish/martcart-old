@@ -35,7 +35,7 @@ const CartCheckout = (props) => {
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    const addOrder = async () => {
+    const addOrder = () => {
         if((address === '')||(city === '')||(state === '')||(pin === '')||(!payChosen)) setIsEmpty(true);
         else
         {

@@ -39,11 +39,11 @@ const Checkout = (props) => {
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    const addOrder = async () => {
+    const addOrder = () => {
         if((address === '')||(city === '')||(state === '')||(pin === '')||(!payChosen)) setIsEmpty(true);
         else
         {
-            await addNewOrder({
+            addNewOrder({
                 prodid: props.id,
                 date: date,
                 time: time,
@@ -152,8 +152,8 @@ const Product = (props) => {
     const id = useParams().id ;
     var product= ProductData.find(obj => { return obj.id === id});
 
-    const addToCart = async () => {
-        await addCartItem({
+    const addToCart = () => {
+        addCartItem({
             prodid: id,
             currUser: props.currUser
         });

@@ -8,7 +8,7 @@ const Navbar = (props) => {
     useEffect(() => {
         fetchCartCount();
     }, [props.cartCount, props.currUser]);
-    const fetchCartCount = async () => {
+    const fetchCartCount = () => {
         if(props.currUser !== '')
         {
             fetch(`/api/cart/getCart`, {
