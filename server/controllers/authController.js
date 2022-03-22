@@ -26,7 +26,7 @@ module.exports.signupController = async (req, res, next) => {
         // Save user
         const savedUser = await User.create(newUser); // savedUser is just newUser with an extra _id attribute, given by the database
         console.log(chalk.greenBright(`[+] Account of ${savedUser.username} was created`));
-        // res.status(200).json(savedUser);
+        res.status(200).json({ username: savedUser.username });
         // res.redirect('/login');
         next();
 
@@ -80,7 +80,8 @@ module.exports.loginController = async (req, res, next) => {
 
 module.exports.checkLogged = (req,res) => {
     // console.log("req.user is " + req.user);
-    res.json({ user: req.user });
+    if(req.user) return res.status(200).json({ user: req.user });
+    else return res.status(404).json({ user: null });
 }
 
 module.exports.logoutController = (req,res) => {
@@ -92,6 +93,7 @@ module.exports.logoutController = (req,res) => {
             res.status(200).clearCookie('connect.sid').redirect(CLIENT_URL+'/');
             console.log('Successfully logged out');
         } else {
+            res.status(404).json({ error: err })
             console.log(err);
         }
     });

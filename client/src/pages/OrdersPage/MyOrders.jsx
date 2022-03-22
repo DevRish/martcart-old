@@ -28,7 +28,7 @@ const MyOrders = (props) => {
                     ((orderdata.length !== 0) && isFetched) ?
                     orderdata.map((data, index) => {
                         return (
-                            <div className="orderCard">
+                            <div className="orderCard" key={index}>
                                 <div className="orderImg" style={{
                                     backgroundImage: `url(${data.img})`
                                 }}></div>

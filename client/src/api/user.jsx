@@ -12,7 +12,11 @@ export const getUserData = async (userData) => {
             body: JSON.stringify(userData)
         });
         const data = await res.json();
-        return data;
+        if(res.status === 200) return data;
+        else {
+            if(data.hasOwnProperty('error')) console.log('Request failed with error : '+data.error);
+            return {};
+        }
     } 
     catch (error) { console.log('Error while getting user data : ' + error) }
 }

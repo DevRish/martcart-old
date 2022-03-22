@@ -11,7 +11,7 @@ const Collection = ({ category, catData, catUrl }) => {
                 {
                     catData.map((product) => {
                         return (
-                            <ProductCard cardData={product} />
+                            <ProductCard cardData={product} key={product.id} />
                         )
                     })
                 }

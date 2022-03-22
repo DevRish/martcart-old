@@ -13,41 +13,66 @@ export const getCart = async (currUser) => {
             body: JSON.stringify({ currUser })
         });
         const data = await res.json();
-        let dataArr = [];
-        for(let x in data.cart)
+        if(res.status === 200)
         {
-            let product = ProductData.find(obj => { return obj.id === data.cart[x]});
-            dataArr.push(product)
+            let dataArr = [];
+            for(let x in data.cart)
+            {
+                let product = ProductData.find(obj => { return obj.id === data.cart[x]});
+                dataArr.push(product)
+            }
+            return dataArr.reverse();
         }
-        return dataArr.reverse();
+        else {
+            if(data.hasOwnProperty('error')) console.log('Request failed with error : '+data.error);
+            return [];
+        };
     } 
     catch (error) { console.log('Error while getting cart : '+error) }
 }
 
-export const addCartItem = async (data) => {
+export const addCartItem = async (itemdata) => {
     try 
     {
-        fetch(`${BASE_URL}/cart/addItem`, {
+        const res = await fetch(`${BASE_URL}/cart/addItem`, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(itemdata)
         })
+        const data = await res.json();
+        if(res.status === 200) {
+            if(data.hasOwnProperty('message')) console.log(data.message);
+            return;
+        }
+        else {
+            if(data.hasOwnProperty('error')) console.log('Request failed with error : '+data.error);
+            return ;
+        }
     } 
     catch (error) { console.log('Error while adding item to cart : ' + error ) }
 }
 
-export const removeCartItem = async (data) => {
+export const removeCartItem = async (itemdata) => {
     try 
     {
-        fetch(`${BASE_URL}/cart/removeItem`, {
+        const res = await fetch(`${BASE_URL}/cart/removeItem`, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(itemdata)
         })
+        const data = await res.json();
+        if(res.status === 200) {
+            if(data.hasOwnProperty('message')) console.log(data.message);
+            return;
+        }
+        else {
+            if(data.hasOwnProperty('error')) console.log('Request failed with error : '+data.error);
+            return ;
+        }
     } 
     catch (error) { console.log('Error while removing item from cart : ' + error) }
 }

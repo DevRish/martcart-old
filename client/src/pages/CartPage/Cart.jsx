@@ -42,7 +42,7 @@ const CartCheckout = (props) => {
             for(let x in props.cartdata)
             {
                 let item = props.cartdata[x];
-                await addNewOrder({
+                addNewOrder({
                     prodid: item.id,
                     date: date,
                     time: time,
@@ -51,7 +51,7 @@ const CartCheckout = (props) => {
                     address: (address+', '+city+', '+state+' - '+pin),
                     currUser: props.currUser
                 })
-                await props.removeFromCart(item.id);
+                props.removeFromCart(item.id);
             }
             navigate('/myorders');
         }
@@ -167,8 +167,8 @@ const Cart = (props) => {
         for(let i=0; i<cartdata.length; i++) total += parseInt(cartdata[i].priceNew);
         return total;
     }
-    const removeFromCart = async (id) => {
-        await removeCartItem({
+    const removeFromCart = (id) => {
+        removeCartItem({
             prodid: id,
             currUser: props.currUser
         });
@@ -192,7 +192,7 @@ const Cart = (props) => {
                     ((cartdata.length !== 0) && isFetched) ?
                     cartdata.map((data, index) => {
                         return (
-                            <div className="cartCard">
+                            <div className="cartCard" key={index}>
                                 <div className="cartImg" style={{
                                     backgroundImage: `url(${data.img})`
                                 }}></div>

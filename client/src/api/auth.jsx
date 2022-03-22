@@ -6,8 +6,12 @@ export const checkLoggedIn = async () => {
     {
         const res = await fetch(`${BASE_URL}/auth/checkLogged`);
         const data = await res.json();
-        if(data.user !== undefined) return ({ isLoggedIn: true, username: data.user.username });
-        else return ({ isLoggedIn: false, username: '' });
+        if(res.status === 200) return ({ isLoggedIn: true, username: data.user.username });
+        else if(res.status === 404) return ({ isLoggedIn: false, username: '' });
+        else {
+            console.log('Failed to fetch auth status');
+            return ({ isLoggedIn: false, username: '' });
+        }
     } 
     catch (error) { console.log('Error while checking logged in or not : ' + error) }
 }
