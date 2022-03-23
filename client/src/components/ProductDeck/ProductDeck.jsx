@@ -6,9 +6,9 @@ const ProductDeck = ({ categoryData }) => {
   return (
     <div className="grid">
         {
-            categoryData.map((data) => {
+            categoryData.map((data, index) => {
                 return (
-                    <ProductCard cardData={data} />
+                    <ProductCard cardData={data} key={index} />
                 )
             })
         }

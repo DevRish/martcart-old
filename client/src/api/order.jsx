@@ -44,7 +44,7 @@ export const addNewOrder = async (order) => {
         })
         const data = await res.json();
         if(res.status === 200) {
-            if(data.hasOwnProperty('message')) console.log(data.message);
+            // if(data.hasOwnProperty('message')) console.log(data.message);
             return;
         }
         else {

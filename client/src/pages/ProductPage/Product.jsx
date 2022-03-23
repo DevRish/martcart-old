@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
+import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'
 
@@ -11,8 +12,10 @@ import { stateList, cityList } from '../../helpers/locationsList';
 import Visa from './../../assets/visa.svg';
 import MasterCard from './../../assets/mastercard.svg';
 import Paypal from './../../assets/paypal.svg';
+import { queryClient } from '../../config/queryClient';
 import { addCartItem } from '../../api/cart';
 import { addNewOrder } from '../../api/order';
+import { checkLoggedIn } from '../../api/auth';
 import { getUserData } from '../../api/user';
 
 const Checkout = (props) => {
@@ -52,6 +55,7 @@ const Checkout = (props) => {
                 address: (address+', '+city+', '+state+' - '+pin),
                 currUser: props.currUser
             });
+            queryClient.invalidateQueries('order');
             navigate('/myorders');
         }
     }
@@ -145,19 +149,21 @@ const Checkout = (props) => {
     )
 }
 
-const Product = (props) => {
+const Product = () => {
     const [checkoutVis, setCheckoutVis] = useState(false);
     let navigate = useNavigate();
 
     const id = useParams().id ;
     var product= ProductData.find(obj => { return obj.id === id});
 
+    const authQuery = useQuery('auth', checkLoggedIn, { initialData: { username: '', isLoggedIn: false } } );
+
     const addToCart = () => {
         addCartItem({
             prodid: id,
-            currUser: props.currUser
+            currUser: authQuery.data.username
         });
-        props.setCartCount(props.cartCount + 1)
+        queryClient.invalidateQueries('cart');
         navigate('/cart');
     }
 
@@ -183,7 +189,7 @@ const Product = (props) => {
                         <h5 style={{ fontWeight: "normal" }}>Free Delivery</h5>
                     </div>
                     {
-                        (props.currUser !== '') ?
+                        (authQuery.data.isLoggedIn) ?
                         <div className='prodbtns'>
                             <button onClick={() => setCheckoutVis(!checkoutVis)} style={{ marginRight: "2rem" }}>Buy Now</button>
                             <button onClick={addToCart}>Add to cart</button>
@@ -204,8 +210,8 @@ const Product = (props) => {
                 </div>
             </div>
             {
-                (checkoutVis && (props.currUser !== '')) && 
-                <Checkout currUser={props.currUser} checkoutVis={checkoutVis} id={id} price={product.priceNew}/>
+                (checkoutVis && authQuery.data.isLoggedIn) && 
+                <Checkout currUser={authQuery.data.username} checkoutVis={checkoutVis} id={id} price={product.priceNew}/>
             }
         </div>
         </>

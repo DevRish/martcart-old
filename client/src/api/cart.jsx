@@ -43,7 +43,7 @@ export const addCartItem = async (itemdata) => {
         })
         const data = await res.json();
         if(res.status === 200) {
-            if(data.hasOwnProperty('message')) console.log(data.message);
+            // if(data.hasOwnProperty('message')) console.log(data.message);
             return;
         }
         else {
@@ -66,7 +66,7 @@ export const removeCartItem = async (itemdata) => {
         })
         const data = await res.json();
         if(res.status === 200) {
-            if(data.hasOwnProperty('message')) console.log(data.message);
+            // if(data.hasOwnProperty('message')) console.log(data.message);
             return;
         }
         else {

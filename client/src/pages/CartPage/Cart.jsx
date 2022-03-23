@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from 'react-query';
 import Spinner from './../../components/Spinner/Spinner';
+import { queryClient } from '../../config/queryClient';
+import { checkLoggedIn } from '../../api/auth';
 import { getCart, removeCartItem } from './../../api/cart';
 import { addNewOrder } from '../../api/order';
 import { getUserData } from '../../api/user';
@@ -53,6 +56,7 @@ const CartCheckout = (props) => {
                 })
                 props.removeFromCart(item.id);
             }
+            queryClient.invalidateQueries('order');
             navigate('/myorders');
         }
     }
@@ -147,50 +151,49 @@ const CartCheckout = (props) => {
     )
 }
 
-const Cart = (props) => {
-    const [cartdata, setCartData] = useState([]);
-    const [isFetched, setIsFetched] = useState(false);
+const Cart = () => {
     const [checkoutVis, setCheckoutVis] = useState(false);
-    useEffect(() => {
-        fetchCartData();
-    }, [cartdata]);
-    const fetchCartData = async () => {
-        if(props.currUser !== '')
+
+    const authQuery = useQuery('auth', checkLoggedIn, { initialData: { username: '', isLoggedIn: false } } );
+    const cartQuery = useQuery('cart', async () => {
+        const { isLoggedIn, username } = await checkLoggedIn();
+        if(isLoggedIn)
         {
-            const data = await getCart(props.currUser);
-            setCartData(data);
-            setIsFetched(true);
+            const cartdata = await getCart(username);
+            return cartdata;
         }
-    }
+        else return [];
+    }, { initialData: [] } )
+
     const totalFunc = () => {
         var total = 0;
-        for(let i=0; i<cartdata.length; i++) total += parseInt(cartdata[i].priceNew);
+        for(let i=0; i<cartQuery.data.length; i++) total += parseInt(cartQuery.data[i].priceNew);
         return total;
     }
     const removeFromCart = (id) => {
         removeCartItem({
             prodid: id,
-            currUser: props.currUser
+            currUser: authQuery.data.username
         });
-        props.setCartCount(props.cartCount - 1)
+        queryClient.invalidateQueries('cart');
     }
     return (
         <>
         {
-            (props.currUser !== '') ?
+            (authQuery.isFetched && authQuery.data.isLoggedIn) ?
             <div className="cartContainer">
-                { (!isFetched) && <Spinner /> }
+                { (cartQuery.isFetching || cartQuery.isRefetching) && <Spinner /> }
                 {
-                    (cartdata.length !== 0) && isFetched && 
+                    (!cartQuery.isFetching && !cartQuery.isRefetching && cartQuery.data.length !== 0) && 
                     <span><h1>Total Price : Rs { totalFunc() }</h1><button onClick={() => setCheckoutVis(!checkoutVis)}>Buy Now</button></span>
                 }
                 {
-                    (checkoutVis && (props.currUser !== '')) && 
-                    <CartCheckout currUser={props.currUser} checkoutVis={checkoutVis} cartdata={cartdata} price={totalFunc()} removeFromCart={removeFromCart}/>
+                    (checkoutVis && authQuery.data.isLoggedIn) && 
+                    <CartCheckout currUser={authQuery.data.username} checkoutVis={checkoutVis} cartdata={cartQuery.data} price={totalFunc()} removeFromCart={removeFromCart}/>
                 }
                 {
-                    ((cartdata.length !== 0) && isFetched) ?
-                    cartdata.map((data, index) => {
+                    (!cartQuery.isFetching && !cartQuery.isRefetching && cartQuery.data.length !== 0) ?
+                    cartQuery.data.map((data, index) => {
                         return (
                             <div className="cartCard" key={index}>
                                 <div className="cartImg" style={{
@@ -210,7 +213,8 @@ const Cart = (props) => {
                             </div>
                         )
                     }) :
-                    isFetched && <h2 style={{ textAlign: 'center', fontSize: '3rem', paddingTop: '2rem' }}>No items to display in cart</h2>
+                    !cartQuery.isFetching && !cartQuery.isRefetching && 
+                    <h2 style={{ textAlign: 'center', fontSize: '3rem', paddingTop: '2rem' }}>No items to display in cart</h2>
                 }
             </div> :
             <div className="cartContainer">

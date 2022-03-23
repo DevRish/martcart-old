@@ -26,7 +26,8 @@ module.exports.signupController = async (req, res, next) => {
         // Save user
         const savedUser = await User.create(newUser); // savedUser is just newUser with an extra _id attribute, given by the database
         console.log(chalk.greenBright(`[+] Account of ${savedUser.username} was created`));
-        res.status(200).json({ username: savedUser.username });
+        // res.status(200).json({ username: savedUser.username }); // Don't do this, as login will be called next, and we want to 
+        // send response from there, not here. Sending from here will give "Cannot set headers after they are sent to client" error
         // res.redirect('/login');
         next();
 

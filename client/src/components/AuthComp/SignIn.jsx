@@ -1,11 +1,14 @@
 import {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 import { authLogIn } from '../../api/auth';
+import { queryClient } from '../../config/queryClient';
 import './AuthComp.css'
 
 const SignIn = ({ setnavIndex }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [failmsg, setFailMsg] = useState('');
+    const navigate = useNavigate();
 
     const handleLogIn = async () => { 
        if((username==='')||(password==='')) setFailMsg('Please fill all the fields');
@@ -16,7 +19,12 @@ const SignIn = ({ setnavIndex }) => {
                 password: password
             }
             const { isSuccess, error } = await authLogIn(credentials);
-            if(isSuccess) window.location = '/'; // need to reload to re render everything, now that I have the cookie
+            if(isSuccess) 
+            {
+                // window.location = '/'; // needed to reload to re render everything before, but now with react-query, not required
+                queryClient.invalidateQueries('auth', 'cart', 'order', 'user');
+                navigate('/');
+            }
             else setFailMsg(error);
        }
     }

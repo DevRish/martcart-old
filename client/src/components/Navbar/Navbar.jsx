@@ -1,26 +1,25 @@
-import { React, useState, useEffect } from 'react';
-import { SERVER_URL } from './../../config/keys';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
+import { checkLoggedIn } from '../../api/auth';
+import { getCart } from '../../api/cart';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
-const Navbar = (props) => {
-    const [showMenu, setshowMenu] = useState(false);
-    useEffect(() => {
-        fetchCartCount();
-    }, [props.cartCount, props.currUser]);
-    const fetchCartCount = () => {
-        if(props.currUser !== '')
+const Navbar = () => {
+
+    const authQuery = useQuery('auth', checkLoggedIn, { initialData: { username: '', isLoggedIn: false } } );
+    const cartQuery = useQuery('cart', async () => {
+        const { isLoggedIn, username } = await checkLoggedIn();
+        if(isLoggedIn)
         {
-            fetch(`/api/cart/getCart`, {
-                method: 'post',
-                headers: {
-                    'Content-Type' : 'application/json'
-                },
-                body: JSON.stringify({ currUser: props.currUser })
-            }).then(res=>res.json()).then(data=>{ props.setCartCount(data.cart.length) })
+            const cartdata = await getCart(username);
+            return cartdata;
         }
-        else props.setCartCount(0)
-    }
+        else return [];
+    }, { initialData: [] } )
+
+    const [showMenu, setshowMenu] = useState(false);
+
     return (
         <nav>
             <div className="navContainer">
@@ -31,9 +30,9 @@ const Navbar = (props) => {
                     <li><Link to="/myorders">My Orders</Link></li>
                     <li>
                         {
-                            (props.isLoggedIn === false) ? 
-                            <Link to="/authpage">SignIn</Link> :
-                            <Link to="/profile">Profile</Link>
+                            (authQuery.data.isLoggedIn) ? 
+                            <Link to="/profile">Profile</Link> :
+                            <Link to="/authpage">SignIn</Link>
                         } 
                     </li>
                     <li style={{ border: "none"}}>
@@ -49,7 +48,9 @@ const Navbar = (props) => {
                                 width: "2.5rem",
                                 display: "grid",
                                 placeItems:"center"
-                            }}><p style={{ fontSize: "1.5rem" }}>{props.cartCount}</p></div>
+                        }}>
+                            {/* {console.log(cartQuery)} */}
+                            <p style={{ fontSize: "1.5rem" }}>{cartQuery.data.length}</p></div>
                             <i className="fas fa-shopping-cart"></i>
                         </Link>
                     </li>

@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { QueryClientProvider } from 'react-query';
 import Navbar from './components/Navbar/Navbar'
 import Home from './pages/HomePage/Home'
 import CategoryPage from './pages/CategoryPage/CategoryPage'
@@ -9,42 +10,32 @@ import AuthPage from './pages/AuthPage/AuthPage'
 import Profile from './pages/ProfilePage/Profile'
 import Cart from './pages/CartPage/Cart'
 import Footer from './components/Footer/Footer'
+import { queryClient } from './config/queryClient';
+
 import './App.css'
-import { checkLoggedIn } from './api/auth';
 
 const App = () => {
-    const [isLoggedIn, setisLoggedIn] = useState(false);
-    const [currUser, setcurrUser] = useState('');
-    const [cartCount, setCartCount] = useState(0);
-
-    const checkAuth = async () => {
-        const data = await checkLoggedIn();
-        setisLoggedIn(data.isLoggedIn);
-        setcurrUser(data.username);
-        console.log('isLoggedIn : '+isLoggedIn);
-    }
-
-    checkAuth();
-
     return(
+        <QueryClientProvider client={queryClient}>
         <div style={{ minHeight: "100vh", position: "relative", paddingBottom: "8vh" }}>
         <BrowserRouter>
-            <Navbar isLoggedIn={isLoggedIn} currUser={currUser} cartCount={cartCount} setCartCount={setCartCount} />
+            <Navbar />
             <Routes>
                 <Route path="/" exact element={<Home />} />
                 <Route path="/footwear" element={<CategoryPage category={'footwear'} />} />
                 <Route path="/fashion" element={<CategoryPage category={'fashion'} />} />
                 <Route path="/winterwear" element={<CategoryPage category={'winterwear'} />} />
                 <Route path="/electronics" element={<CategoryPage category={'electronics'} />} />
-                <Route path="/product/:id" element={<Product currUser={currUser} setCartCount={setCartCount} cartCount={cartCount} />} />
-                <Route path="/myorders" element={<MyOrders currUser={currUser} />} />
-                <Route path="/authpage" element={<AuthPage setisLoggedIn={setisLoggedIn} setcurrUser={setcurrUser} />} />
-                <Route path="/cart" element={<Cart currUser={currUser} setCartCount={setCartCount} cartCount={cartCount} />} />
-                <Route path="/profile" element={<Profile currUser={currUser} />} />
+                <Route path="/product/:id" element={<Product />} />
+                <Route path="/myorders" element={<MyOrders />} />
+                <Route path="/authpage" element={<AuthPage />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/profile" element={<Profile />} />
             </Routes>
             <Footer />
         </BrowserRouter>
         </div>
+        </QueryClientProvider>
     );
 }
 

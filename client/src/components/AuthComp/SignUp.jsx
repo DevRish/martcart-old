@@ -1,8 +1,10 @@
 import {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 import { authSignUp } from '../../api/auth';
+import { queryClient } from '../../config/queryClient';
 import './AuthComp.css'
 
-const SignUp = ({ setisLoggedIn, setcurrUser, setnavIndex }) => {
+const SignUp = ({ setnavIndex }) => {
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [username, setUsername] = useState('');
@@ -11,6 +13,7 @@ const SignUp = ({ setisLoggedIn, setcurrUser, setnavIndex }) => {
     const [password, setPassword] = useState('');
     const [cpassword, setCPassword] = useState('');
     const [failmsg, setFailMsg] = useState('');
+    const navigate = useNavigate();
 
     const handleSignUp = async () => { 
        if((firstname==='')||(lastname==='')||(username==='')||(phone==='')||(email==='')||(password==='')||(cpassword==='')) 
@@ -27,7 +30,11 @@ const SignUp = ({ setisLoggedIn, setcurrUser, setnavIndex }) => {
                password: password
            };
            const { isSuccess, error } = await authSignUp(newUser);
-           if(isSuccess) window.location = '/';
+           if(isSuccess) 
+           {
+                queryClient.invalidateQueries('auth', 'cart', 'order', 'user');
+                navigate('/');
+           }
            else setFailMsg(error);
        }
     }
@@ -55,7 +62,7 @@ const SignUp = ({ setisLoggedIn, setcurrUser, setnavIndex }) => {
             <button className="authbtn" onClick={ handleSignUp }>SignUp</button>
             <div className='authToggle'>
                 <p style={{ marginRight: "1rem" }}>Already have an account?</p>
-                <p style={{ cursor: "pointer", color:"#230033" }} onClick={ () => { setnavIndex(1) } }><b> SignIn </b></p>
+                <p style={{ cursor: "pointer", color:"#230033" }} onClick={ () => { setnavIndex(1) } }><b> LogIn </b></p>
             </div>
         </div>
     )
