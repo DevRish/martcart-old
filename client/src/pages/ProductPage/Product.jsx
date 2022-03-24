@@ -160,7 +160,7 @@ const Product = () => {
     if(productsQuery.isFetched)
     {
         product = productsQuery.data.products.find(product => { return product._id === id});
-        console.log(product);
+        // console.log(product);
     }
 
     const authQuery = useQuery('auth', checkLoggedIn, { initialData: { username: '', isLoggedIn: false } } );

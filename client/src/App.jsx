@@ -22,7 +22,7 @@ const App = () => {
             <Navbar />
             <Routes>
                 <Route path="/" exact element={<Home />} />
-                <Route path="/search/:category" element={<CategoryPage />} />
+                <Route path="/search/" element={<CategoryPage />} />
                 <Route path="/product/:id" element={<Product />} />
                 <Route path="/myorders" element={<MyOrders />} />
                 <Route path="/authpage" element={<AuthPage />} />

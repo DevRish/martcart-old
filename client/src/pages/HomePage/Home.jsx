@@ -24,10 +24,10 @@ const Home = () => {
     {
       productsQuery.isFetched ?
       <>
-      <Collection category="Shoes" catData={FootwearData.slice(0,3)} catUrl="/search/shoe" />
-      <Collection category="Fashion" catData={FashionData.slice(0,3)} catUrl="/search/fashion" />
-      <Collection category="Winterwear" catData={WinterwearData.slice(0,3)} catUrl="/search/winterwear" />
-      <Collection category="Technology" catData={ElectronicsData.slice(0,3)} catUrl="/search/technology" />
+      <Collection category="Shoes" catData={FootwearData.slice(0,3)} catUrl="/search" />
+      <Collection category="Fashion" catData={FashionData.slice(0,3)} catUrl="/search" />
+      <Collection category="Winterwear" catData={WinterwearData.slice(0,3)} catUrl="/search" />
+      <Collection category="Technology" catData={ElectronicsData.slice(0,3)} catUrl="/search" />
       </> :
       <Spinner />
     }
