@@ -10,6 +10,7 @@ const { userRoutes } = require('./routes/userRoutes');
 const { authRoutes } = require('./routes/authRoutes');
 const { cartRoutes } = require('./routes/cartRoutes');
 const { orderRoutes } = require('./routes/orderRoutes');
+const { productRoutes } = require('./routes/productRoutes');
 require('./config/passport-config');
 
 const app = express();
@@ -39,6 +40,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/static', express.static('public'));
+app.use('/api/product', productRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/cart', cartRoutes);

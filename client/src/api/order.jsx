@@ -1,4 +1,4 @@
-import { ProductData } from './../helpers/ProductData'
+import { getAllProducts } from "./product";
 
 const BASE_URL = '/api';
 
@@ -13,12 +13,13 @@ export const getOrderData = async (currUser) => {
             body: JSON.stringify({ currUser })
         });
         const data = await res.json();
+        const productData = await getAllProducts();
         if(res.status === 200)
         {
             let dataArr = [];
             for(let x in data.orders)
             {
-                let product = ProductData.find(obj => { return obj.id === data.orders[x].prodid });
+                let product = productData.products.find(obj => { return obj._id === data.orders[x].prodid });
                 let order = {...product, ...(data.orders[x])}
                 dataArr.push(order)
             }

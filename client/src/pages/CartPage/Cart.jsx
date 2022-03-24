@@ -46,15 +46,15 @@ const CartCheckout = (props) => {
             {
                 let item = props.cartdata[x];
                 addNewOrder({
-                    prodid: item.id,
+                    prodid: item._id,
                     date: date,
                     time: time,
                     quantity: 1,
-                    totalPrice: (item.priceNew), 
+                    totalPrice: (parseInt((item.price)*( 1 - (item.discount_percent*0.01)))), 
                     address: (address+', '+city+', '+state+' - '+pin),
                     currUser: props.currUser
                 })
-                props.removeFromCart(item.id);
+                props.removeFromCart(item._id);
             }
             queryClient.invalidateQueries('order');
             navigate('/myorders');
@@ -167,7 +167,11 @@ const Cart = () => {
 
     const totalFunc = () => {
         var total = 0;
-        for(let i=0; i<cartQuery.data.length; i++) total += parseInt(cartQuery.data[i].priceNew);
+        for(let i=0; i<cartQuery.data.length; i++) 
+        {
+            let priceNew = cartQuery.data[i].price*(1 - cartQuery.data[i].discount_percent*0.01);
+            total += parseInt(priceNew);
+        }
         return total;
     }
     const removeFromCart = (id) => {
@@ -197,18 +201,18 @@ const Cart = () => {
                         return (
                             <div className="cartCard" key={index}>
                                 <div className="cartImg" style={{
-                                    backgroundImage: `url(${data.img})`
+                                    backgroundImage: `url(${data.img_url})`
                                 }}></div>
                                 <div className="cartDesc">
-                                    <h4>{data.heading}</h4>
+                                    <h4>{data.prod_name}</h4>
                                     <div style={{ fontSize: "1.8rem", marginBottom: "1.5rem" }}>
                                         <p>
-                                            <b> Rs {data.priceNew}  </b>
+                                            <b> Rs {parseInt((data.price)*( 1 - (data.discount_percent*0.01)))}  </b>
                                         </p>
                                         <h5 style={{ fontWeight: "normal" }}>⭐⭐⭐⭐⭐ 5.0</h5>
                                         <h5 style={{ fontWeight: "normal" }}>Free Delivery</h5>
                                     </div>
-                                    <button onClick={() => removeFromCart(data.id)}>Remove From Cart</button>
+                                    <button onClick={() => removeFromCart(data._id)}>Remove From Cart</button>
                                 </div>
                             </div>
                         )

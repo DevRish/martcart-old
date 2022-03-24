@@ -22,10 +22,7 @@ const App = () => {
             <Navbar />
             <Routes>
                 <Route path="/" exact element={<Home />} />
-                <Route path="/footwear" element={<CategoryPage category={'footwear'} />} />
-                <Route path="/fashion" element={<CategoryPage category={'fashion'} />} />
-                <Route path="/winterwear" element={<CategoryPage category={'winterwear'} />} />
-                <Route path="/electronics" element={<CategoryPage category={'electronics'} />} />
+                <Route path="/search/:category" element={<CategoryPage />} />
                 <Route path="/product/:id" element={<Product />} />
                 <Route path="/myorders" element={<MyOrders />} />
                 <Route path="/authpage" element={<AuthPage />} />

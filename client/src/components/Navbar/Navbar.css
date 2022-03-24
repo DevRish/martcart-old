@@ -21,7 +21,7 @@ nav .navContainer {
 }
 
 nav h1{
-    font-size: 4rem;
+    font-size: 3.6rem;
     padding: 1rem 1rem;
     color: var(--primary);
 }
@@ -33,7 +33,7 @@ nav ul {
     list-style: none;
     margin-right: 2rem;
     /*border: 2px solid blue;*/
-    font-size: 2.3rem;
+    font-size: 2rem;
     background-color: white;
     height: 100%;
 }

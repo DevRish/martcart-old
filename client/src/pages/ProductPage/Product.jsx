@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom'
 import Spinner from './../../components/Spinner/Spinner'
 import "./../OrdersPage/MyOrders.css"
 import "./Product.css"
-import { ProductData } from "./../../helpers/ProductData"
 import { stateList, cityList } from '../../helpers/locationsList';
 import Visa from './../../assets/visa.svg';
 import MasterCard from './../../assets/mastercard.svg';
@@ -17,6 +16,7 @@ import { addCartItem } from '../../api/cart';
 import { addNewOrder } from '../../api/order';
 import { checkLoggedIn } from '../../api/auth';
 import { getUserData } from '../../api/user';
+import { getAllProducts } from '../../api/product';
 
 const Checkout = (props) => {
     const [userData, setUserData] = useState({});
@@ -151,10 +151,17 @@ const Checkout = (props) => {
 
 const Product = () => {
     const [checkoutVis, setCheckoutVis] = useState(false);
+    const productsQuery = useQuery('product', getAllProducts, { initialData: { products: [] } } );
     let navigate = useNavigate();
 
-    const id = useParams().id ;
-    var product= ProductData.find(obj => { return obj.id === id});
+    const { id } = useParams() ;
+    var product = {};
+
+    if(productsQuery.isFetched)
+    {
+        product = productsQuery.data.products.find(product => { return product._id === id});
+        console.log(product);
+    }
 
     const authQuery = useQuery('auth', checkLoggedIn, { initialData: { username: '', isLoggedIn: false } } );
 
@@ -169,51 +176,55 @@ const Product = () => {
 
     return (
         <>
-        <div className="container">
-            <div className="orderCard">
-                <div className="orderImg" style={{
-                    backgroundImage: `url(${product.img})`
-                }}></div>
-                <div className="orderDesc">
-                    <h4>{product.heading}</h4>
-                    <div style={{ fontSize: "1.8rem", marginBottom: "1rem" }}>
-                        <p>
-                            <b> Rs {product.priceNew}  </b>
-                            <span style={{
-                                fontSize: `14px`,
-                                textDecoration: `line-through`
-                            }}>{product.priceOld}</span> 
-                            ({parseInt(((parseInt(product.priceOld)-parseInt(product.priceNew))/(parseInt(product.priceOld)))*100)}% off)
-                        </p>
-                        <h5 style={{ fontWeight: "normal" }}>⭐⭐⭐⭐⭐ 5.0</h5>
-                        <h5 style={{ fontWeight: "normal" }}>Free Delivery</h5>
-                    </div>
-                    {
-                        (authQuery.data.isLoggedIn) ?
-                        <div className='prodbtns'>
-                            <button onClick={() => setCheckoutVis(!checkoutVis)} style={{ marginRight: "2rem" }}>Buy Now</button>
-                            <button onClick={addToCart}>Add to cart</button>
-                        </div> :
-                        <p className='prodbtns' style={{ fontSize: "2rem" }}>
-                            Please 
-                            <Link to="/authpage" style={{
-                                textDecoration: "none",
-                                fontSize: "2rem",
-                                fontWeight: "bold",
-                                margin: "0 0.6rem",
-                                color: "#230033"
-                            }}>SignIn</Link>
-                            to buy this product
-                        </p>
+        {
+            productsQuery.isFetched ?
+            <div className="container">
+                <div className="orderCard">
+                    <div className="orderImg" style={{
+                        backgroundImage: `url(${product.img_url})`
+                    }}></div>
+                    <div className="orderDesc">
+                        <h4>{product.prod_name}</h4>
+                        <div style={{ fontSize: "1.8rem", marginBottom: "1rem" }}>
+                            <p>
+                                <b> Rs {parseInt((product.price)*( 1 - (product.discount_percent*0.01)))}  </b>
+                                <span style={{
+                                    fontSize: `14px`,
+                                    textDecoration: `line-through`
+                                }}>{product.price}</span> 
+                                ({product.discount_percent}% off)
+                            </p>
+                            <h5 style={{ fontWeight: "normal" }}>⭐⭐⭐⭐⭐ 5.0</h5>
+                            <h5 style={{ fontWeight: "normal" }}>Free Delivery</h5>
+                        </div>
+                        {
+                            (authQuery.data.isLoggedIn) ?
+                            <div className='prodbtns'>
+                                <button onClick={() => setCheckoutVis(!checkoutVis)} style={{ marginRight: "2rem" }}>Buy Now</button>
+                                <button onClick={addToCart}>Add to cart</button>
+                            </div> :
+                            <p className='prodbtns' style={{ fontSize: "2rem" }}>
+                                Please 
+                                <Link to="/authpage" style={{
+                                    textDecoration: "none",
+                                    fontSize: "2rem",
+                                    fontWeight: "bold",
+                                    margin: "0 0.6rem",
+                                    color: "#230033"
+                                }}>SignIn</Link>
+                                to buy this product
+                            </p>
 
-                    }
+                        }
+                    </div>
                 </div>
-            </div>
-            {
-                (checkoutVis && authQuery.data.isLoggedIn) && 
-                <Checkout currUser={authQuery.data.username} checkoutVis={checkoutVis} id={id} price={product.priceNew}/>
-            }
-        </div>
+                {
+                    (checkoutVis && authQuery.data.isLoggedIn) && 
+                    <Checkout currUser={authQuery.data.username} checkoutVis={checkoutVis} id={id} price={product.price}/>
+                }
+            </div> :
+            <Spinner />
+        }
         </>
     )
 }

@@ -1,26 +1,28 @@
+import { useQuery } from 'react-query';
+import { useParams } from 'react-router-dom';
 import ProductDeck from '../../components/ProductDeck/ProductDeck';
-import { FootwearData } from '../../helpers/FootwearData';
-import { FashionData } from '../../helpers/FashionData';
-import { WinterwearData } from '../../helpers/WinterwearData';
-import { ElectronicsData } from '../../helpers/ElectronicsData';
+import { getAllProducts } from '../../api/product';
 import './CategoryPage.css';
+import Spinner from '../../components/Spinner/Spinner';
 
-const CategoryPage = ({ category }) => {
+const CategoryPage = () => {
     window.scroll({top: 0});
-    var categoryData = [];
-    var emoji = '';
-    switch(category)
+    const { category } = useParams();
+    var productsData = [];
+    const productsQuery = useQuery('product', getAllProducts, { initialData: { products: [] } } );
+    if(productsQuery.isFetched)
     {
-        case "footwear": categoryData = FootwearData; emoji = '👟'; break;
-        case "fashion": categoryData = FashionData; emoji = '👕'; break;
-        case "winterwear": categoryData = WinterwearData; emoji = '❄️'; break;
-        case "electronics": categoryData = ElectronicsData; emoji = '⚡'; break;
-        default: break;
+        if(category) productsData = productsQuery.data.products.filter((product) => product.tags.includes(category));
+        else productsData = productsQuery.data.products;
     }
     return (
         <div className="container">
-            <h1 className='mainHeading'> {emoji} LATEST IN {category.toUpperCase()} {emoji} </h1>
-            <ProductDeck categoryData={categoryData} />
+            <h1 className='mainHeading'> 🛍️ Our Products 🛍️ </h1>
+            {
+                productsQuery.isFetched ? 
+                <ProductDeck productData={productsData} /> :
+                <Spinner />
+            }
         </div>
     )
 }

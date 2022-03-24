@@ -1,4 +1,4 @@
-import { ProductData } from './../helpers/ProductData'
+import { getAllProducts } from "./product";
 
 const BASE_URL = '/api';
 
@@ -13,12 +13,14 @@ export const getCart = async (currUser) => {
             body: JSON.stringify({ currUser })
         });
         const data = await res.json();
+        const productData = await getAllProducts();
         if(res.status === 200)
         {
             let dataArr = [];
             for(let x in data.cart)
             {
-                let product = ProductData.find(obj => { return obj.id === data.cart[x]});
+                let product = productData.products.find(product => { return product._id === data.cart[x]});
+                // console.log(product);
                 dataArr.push(product)
             }
             return dataArr.reverse();

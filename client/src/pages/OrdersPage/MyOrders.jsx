@@ -33,10 +33,10 @@ const MyOrders = () => {
                         return (
                             <div className="orderCard" key={index}>
                                 <div className="orderImg" style={{
-                                    backgroundImage: `url(${data.img})`
+                                    backgroundImage: `url(${data.img_url})`
                                 }}></div>
                                 <div className="orderDesc">
-                                    <h3 style={{ fontSize: "3rem" }}>{data.heading}</h3>
+                                    <h3 style={{ fontSize: "3rem" }}>{data.prod_name}</h3>
                                     <p style={{ fontSize: "2rem" }}>
                                         <b>Quantity:</b> {data.quantity} <br />
                                         <b>Total:</b> Rs {data.totalPrice} <br /> 

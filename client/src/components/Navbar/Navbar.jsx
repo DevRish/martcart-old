@@ -35,6 +35,7 @@ const Navbar = () => {
                             <Link to="/authpage">SignIn</Link>
                         } 
                     </li>
+                    <li><Link to="/search/shoe">Search <i className="fa-solid fa-magnifying-glass"></i></Link></li>
                     <li style={{ border: "none"}}>
                         <Link to="/cart" className="cartlogo">
                             <div style={{

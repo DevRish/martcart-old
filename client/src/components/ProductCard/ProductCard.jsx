@@ -3,22 +3,22 @@ import './ProductCard.css'
 
 const ProductCard = ({ cardData }) => {
   return (
-    <Link to={"/product/"+cardData.id} className="productCard" style={{
+    <Link to={"/product/"+cardData._id} className="productCard" style={{
         textDecoration: "none",
         color: "black"
     }}>
         <div className="productCardImg" style={{
-            backgroundImage: `url(${cardData.img})`
+            backgroundImage: `url(${cardData.img_url})`
         }}></div>
         <div className="productCardDesc">
-            <h4>{cardData.heading}</h4>
+            <h4>{cardData.prod_name}</h4>
             <p>
-                <b> Rs {cardData.priceNew}  </b>
+                <b> Rs {parseInt((cardData.price)*( 1 - (cardData.discount_percent*0.01)))}  </b>
                 <span style={{
                     fontSize: `14px`,
                     textDecoration: `line-through`
-                }}>{cardData.priceOld}</span> 
-                ({parseInt(((parseInt(cardData.priceOld)-parseInt(cardData.priceNew))/(parseInt(cardData.priceOld)))*100)}% off)
+                }}>{cardData.price}</span> 
+                ({cardData.discount_percent}% off)
             </p>
             <h5 style={{ fontWeight: "normal" }}>⭐⭐⭐⭐⭐ 5.0</h5>
             <h5 style={{ fontWeight: "normal" }}>Free Delivery</h5>

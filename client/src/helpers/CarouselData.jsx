@@ -11,7 +11,7 @@ export const caroData = [
         color_light: "#9C4EBE",
         color_dark: "#230033",
         btn_color: "#E27856",
-        link: "/footwear"
+        link: "/search/shoe"
     },
     {
         img: Tshirt,
@@ -19,7 +19,7 @@ export const caroData = [
         color_light: "#FF7191",
         color_dark: "#C60E38",
         btn_color: "#005165",
-        link: "/fashion"
+        link: "/search/fashion"
     },
     {
         img: Jacket,
@@ -27,7 +27,7 @@ export const caroData = [
         color_light: "#71ECFF",
         color_dark: "#0091A7",
         btn_color: "#A72F68",
-        link: "/winterwear"
+        link: "/search/winterwear"
     },
     {
         img: Television,
@@ -35,7 +35,7 @@ export const caroData = [
         color_light: "#53F0E3",
         color_dark: "#009286",
         btn_color: "#344B48",
-        link: "/electronics"
+        link: "/search/technology"
     },
     {
         img: Realme,
@@ -43,6 +43,6 @@ export const caroData = [
         color_light: "#FFA3A1",
         color_dark: "#B00400",
         btn_color: "#230033",
-        link: "/electronics"
+        link: "/search/technology"
     }
 ]
