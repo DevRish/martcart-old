@@ -4,7 +4,6 @@ const passport = require('passport');
 const MongoStore = require('connect-mongo');
 const chalk = require("chalk");
 const cors = require("cors");
-const { prodConfig } = require("./config/production");
 const { PORT, CLIENT_URL, CLIENT_DOMAIN, SESSION_SECRET, DATABASE_URL } = require("./config/keys");
 const { connectDB } = require("./config/databaseConn");
 const { userRoutes } = require('./routes/userRoutes');
@@ -39,6 +38,7 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/static', express.static('public'));
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/cart', cartRoutes);
@@ -47,7 +47,5 @@ app.use('/api/order', orderRoutes);
 app.get('/', (req,res) => {
     res.send('<h1>Server is running :)</h1><h3>Client and server were separated. <br> Please visit client at https://martcartdevrish.netlify.app/</h3>')
 })
-
-prodConfig(app); // for production
  
 app.listen(PORT, () => console.log(chalk.greenBright(`[+] Server running on port ${PORT}`)) );
