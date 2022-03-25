@@ -58,11 +58,13 @@ module.exports.removeFromCart = (req,res) => {
                 if(item.prodid === req.body.prodid) return { ...item, quantity: (q-1) };
                 else return item;
             })
+            console.log('Cart after map function : '+user.cart);
             user.cart = user.cart.filter((item) => (item.quantity > 0))
+            console.log('Cart after filter function : '+user.cart);
             User.updateOne({ username: req.body.currUser }, user)
             .then(() => {
                 res.status(200).json({ message: `Item ${req.body.prodid} removed from cart` })
-                console.log(chalk.greenBright(`[+] Item removed from cart`))
+                console.log(chalk.greenBright(`[+] Item ${req.body.prodid} removed from cart`))
             } )
             .catch(err => {
                 res.status(404).json({ error: err })
@@ -74,5 +76,21 @@ module.exports.removeFromCart = (req,res) => {
             res.status(200).json({ message: `Item was not present in cart` })
             console.log(chalk.greenBright(`[+] Item was not present in cart`))
         }
+    })
+}
+
+module.exports.emptyCart = (req,res) => {
+    User.find({ username: req.body.currUser }).then((users) => {
+        let user = users[0];
+        user.cart = [];
+        User.updateOne({ username: req.body.currUser }, user)
+        .then(() => {
+            res.status(200).json({ message: `Cart emptied` })
+            console.log(chalk.greenBright(`Cart Emptied`))
+        })
+        .catch(err => {
+            res.status(404).json({ error: err })
+            console.log(chalk.redBright(`[-] Error while removing item from cart : ${err}`))
+        })
     })
 }

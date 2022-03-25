@@ -7,7 +7,7 @@ import { getUserData } from "../../api/user";
 import { addNewOrder } from "../../api/order";
 import { checkLoggedIn } from "../../api/auth";
 import { getCart } from "../../api/cart";
-import { removeCartItem } from "../../api/cart";
+import { emptyCart } from "../../api/cart";
 import Spinner from "../Spinner/Spinner";
 import RazorPay from './../../assets/razorpay.svg';
 import './Checkout.css';
@@ -43,37 +43,41 @@ const Checkout = ({ item, price, isCart }) => {
         else return [];
     }, { initialData: [] } )
 
-    const removeFromCart = (id) => {
-        removeCartItem({
-            prodid: id,
-            currUser: authQuery.data.username
-        });
-        queryClient.invalidateQueries('cart');
-    }
-
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    const addOrder = () => {
+    const addOrder = async () => {
         if((address === '')||(city === '')||(state === '')||(pin === '')||(!payChosen)) setIsEmpty(true);
         else
         {
             if(isCart) 
             {
-                for(let x in cartQuery.data)
+                // cart query keeps updating as we remove. Keeping it here is risky I guess.
+                // Same for user, lets make things constant
+                const cartFixed = cartQuery.data;
+                const currUser = authQuery.data.username;
+                for(let x in cartFixed)
                 {
-                    let item = cartQuery.data[x];
-                    addNewOrder({
+                    const item = cartFixed[x];
+                    await addNewOrder({
                         prodid: item._id,
                         date: date,
                         time: time,
                         quantity: item.quantity,
                         totalPrice: (item.quantity * parseInt((item.price)*( 1 - (item.discount_percent*0.01)))), 
                         address: (address+', '+city+', '+state+' - '+pin),
-                        currUser: authQuery.data.username
+                        currUser: currUser
                     })
-                    removeFromCart(item._id);
+                    
+                    // console.log(item.prod_name+' has quantity '+item.quantity);
+                    // for(let i=1; i<=item.quantity; i++) 
+                    // {
+                    //     removeFromCart(item._id, currUser);
+                    //     console.log('Removed one '+item.prod_name);
+                    // }
                 }
+                await emptyCart(currUser);
+                queryClient.invalidateQueries('cart');
             }
             else 
             {
@@ -92,9 +96,9 @@ const Checkout = ({ item, price, isCart }) => {
     }
     return(
         <>
-            { (!userQuery.isFetched || !authQuery.isFetched) && <Spinner /> }
+            { (!userQuery.isFetched || !authQuery.isFetched || cartQuery.isFetching || cartQuery.isRefetching) && <Spinner /> }
             {
-                (userQuery.isFetched && authQuery.isFetched) &&
+                (userQuery.isFetched && cartQuery.isFetched && !cartQuery.isRefetching && authQuery.isFetched) &&
                 <>
                 <div className="container checkout">
                     <h1>ORDER DETAILS: </h1>

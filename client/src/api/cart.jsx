@@ -81,3 +81,25 @@ export const removeCartItem = async (itemdata) => {
     } 
     catch (error) { console.log('Error while removing item from cart : ' + error) }
 }
+
+export const emptyCart = async (currUser) => {
+    try 
+    {
+        const res = await fetch(`${BASE_URL}/cart/emptyCart`, {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({ currUser })
+        });
+        const data = await res.json();
+        if(res.status === 200)
+        {
+            console.log(data.message);
+        }
+        else {
+            if(data.hasOwnProperty('error')) console.log('Request failed with error : '+data.error);
+        };
+    } 
+    catch (error) { console.log('Error while emptying cart : '+error) }
+}

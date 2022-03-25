@@ -32,7 +32,7 @@ const Cart = () => {
         for(let i=0; i<cartQuery.data.length; i++) 
         {
             let priceNew = cartQuery.data[i].price*(1 - cartQuery.data[i].discount_percent*0.01);
-            total += parseInt(priceNew);
+            total += (cartQuery.data[i].quantity * parseInt(priceNew));
         }
         return total;
     }
