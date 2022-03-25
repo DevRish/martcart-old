@@ -1,10 +1,15 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { authLogIn } from '../../api/auth';
 import { queryClient } from '../../config/queryClient';
 import './AuthComp.css'
 
 const SignIn = ({ setnavIndex }) => {
+
+    useEffect(() => {
+        window.scrollTo(0,0);
+    }, [])
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [failmsg, setFailMsg] = useState('');

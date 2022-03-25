@@ -17,10 +17,10 @@ export const getCart = async (currUser) => {
         if(res.status === 200)
         {
             let dataArr = [];
-            console.log(data);
+            // console.log(data);
             for(let x in data.cart)
             {
-                console.log(data.cart[x]);
+                // console.log(data.cart[x]);
                 let item = productData.products.find(product => { return product._id === data.cart[x].prodid });
                 item = { ...item, quantity: data.cart[x].quantity };
                 // console.log(product);

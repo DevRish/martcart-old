@@ -1,36 +1,56 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import { queryClient } from "../../config/queryClient";
 import { stateList, cityList } from '../../helpers/locationsList';
-import Visa from './../../assets/visa.svg';
-import MasterCard from './../../assets/mastercard.svg';
-import Paypal from './../../assets/paypal.svg';
+import { getUserData } from "../../api/user";
+import { addNewOrder } from "../../api/order";
+import { checkLoggedIn } from "../../api/auth";
+import { getCart } from "../../api/cart";
+import { removeCartItem } from "../../api/cart";
+import Spinner from "../Spinner/Spinner";
+import RazorPay from './../../assets/razorpay.svg';
+import './Checkout.css';
 
-// Cart: 
-// <Checkout currUser={currUser} items={cartdata} checkoutVis={checkoutVis} removeFromCart={removeFromCart} price={ totalFunc() } isCart={true}>
-// Product: 
-// <Checkout currUser={currUser} items={ [product] } checkoutVis={checkoutVis} removeFromCart={null} price={ product.priceNew } isCart={false}>
-
-const Checkout = ({ currUser, items, checkoutVis, removeFromCart, price, isCart }) => {
-    const [userData, setUserData] = useState({});
+const Checkout = ({ item, price, isCart }) => {
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [pin, setPin] = useState('');
-    const [quantity, setQuantity] = useState(1);
     const [payChosen, setPayChosen] = useState(false);
-    const [isFetched, setIsFetched] = useState(false);
     const [isEmpty, setIsEmpty] = useState(false);
     let navigate = useNavigate();
-    useEffect(() => {
-        fetchUserData();
-    }, []);
-    const fetchUserData = async () => {
-        const data = await getUserData({
-            currUser: currUser
+
+    const authQuery = useQuery('auth', checkLoggedIn, { initialData: { username: '', isLoggedIn: false } } );
+    
+    const userQuery = useQuery('user', async () => {
+        const { isLoggedIn, username } = await checkLoggedIn();
+        if(isLoggedIn)
+        {
+            const userdata = await getUserData({ currUser: username });
+            return userdata;
+        }
+        else return {};
+    }, { initialData: {} })
+
+    const cartQuery = useQuery('cart', async () => {
+        const { isLoggedIn, username } = await checkLoggedIn();
+        if(isLoggedIn)
+        {
+            const cartdata = await getCart(username);
+            return cartdata;
+        }
+        else return [];
+    }, { initialData: [] } )
+
+    const removeFromCart = (id) => {
+        removeCartItem({
+            prodid: id,
+            currUser: authQuery.data.username
         });
-        setUserData(data);
-        setIsFetched(true);
+        queryClient.invalidateQueries('cart');
     }
+
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -40,55 +60,55 @@ const Checkout = ({ currUser, items, checkoutVis, removeFromCart, price, isCart 
         {
             if(isCart) 
             {
-                for(let x in items)
+                for(let x in cartQuery.data)
                 {
-                    let item = items[x];
+                    let item = cartQuery.data[x];
                     addNewOrder({
-                        prodid: item.id,
+                        prodid: item._id,
                         date: date,
                         time: time,
-                        quantity: 1,
-                        totalPrice: (item.priceNew), 
+                        quantity: item.quantity,
+                        totalPrice: (item.quantity * parseInt((item.price)*( 1 - (item.discount_percent*0.01)))), 
                         address: (address+', '+city+', '+state+' - '+pin),
-                        currUser: currUser
+                        currUser: authQuery.data.username
                     })
-                    removeFromCart(item.id);
+                    removeFromCart(item._id);
                 }
             }
             else 
             {
                 addNewOrder({
-                    prodid: items[0].id,
+                    prodid: item._id,
                     date: date,
                     time: time,
-                    quantity: quantity,
-                    totalPrice: (items[0].priceNew * quantity), 
+                    quantity: 1,
+                    totalPrice: price, 
                     address: (address+', '+city+', '+state+' - '+pin),
-                    currUser: currUser
+                    currUser: authQuery.data.username
                 });
             }
             navigate('/myorders');
         }
     }
     return(
-        <div className={ (checkoutVis) ? "checkoutVis" : "" }>
-            { (!isFetched) && <Spinner /> }
+        <>
+            { (!userQuery.isFetched || !authQuery.isFetched) && <Spinner /> }
             {
-                isFetched &&
+                (userQuery.isFetched && authQuery.isFetched) &&
                 <>
                 <div className="container checkout">
                     <h1>ORDER DETAILS: </h1>
                     <div className="checkout_field">
                         <label htmlFor="checkout_name">Name:</label>
-                        <div id="checkout_name">{userData.firstname} {userData.lastname}</div>
+                        <input id="checkout_name" readOnly value={userQuery.data.firstname + ' ' +userQuery.data.lastname} />
                     </div>
                     <div className="checkout_field">
                         <label htmlFor="checkout_phone">Phone:</label>
-                        <div id="checkout_phone">{userData.phone}</div>
+                        <input id="checkout_phone" readOnly value={userQuery.data.phone} />
                     </div>
                     <div className="checkout_field">
                         <label htmlFor="checkout_email">Email:</label>
-                        <div id="checkout_email">{userData.email}</div>
+                        <input id="checkout_email" readOnly value={userQuery.data.email} />
                     </div>
                     <div className="checkout_field">
                         <label htmlFor="checkout_address">Address:</label>
@@ -135,8 +155,8 @@ const Checkout = ({ currUser, items, checkoutVis, removeFromCart, price, isCart 
                         />
                     </div>
                     <div className='checkout_field'>
-                        <label htmlFor="checkout_price">Price:</label>
-                        <div id="checkout_price">{price}</div>
+                        <label htmlFor="checkout_price">Price: </label>
+                        <input id="checkout_price" readOnly value={String.fromCharCode(8377)+' '+price} />
                     </div>
                     <div className='checkout_field'>
                         <label>Choose payment method:</label>
@@ -145,23 +165,17 @@ const Checkout = ({ currUser, items, checkoutVis, removeFromCart, price, isCart 
                             <label htmlFor="checkout_cash">Cash on delivery</label>
                         </div>
                         <div className="checkout_radio">
-                            <input type="radio" name="pay_methods" id="checkout_visa" onChange={() => setPayChosen(true)}/>
-                            <label htmlFor="checkout_visa"><img src={Visa} alt='Visa'/></label>
-                        </div>
-                        <div className="checkout_radio">
-                            <input type="radio" name="pay_methods" id="checkout_mastercard" onChange={() => setPayChosen(true)}/>
-                            <label htmlFor="checkout_mastercard"><img src={MasterCard} alt='MasterCard'/></label>
-                        </div>
-                        <div className="checkout_radio">
-                            <input type="radio" name="pay_methods" id="checkout_paypal" onChange={() => setPayChosen(true)}/>
-                            <label htmlFor="checkout_paypal"><img src={Paypal} alt='Paypal'/></label>
+                            <input type="radio" name="pay_methods" id="checkout_razorpay" onChange={() => setPayChosen(true)}/>
+                            <label htmlFor="checkout_razorpay"><img src={RazorPay} alt='RazorPay'/></label>
                         </div>
                     </div>
-                    { isEmpty && <p>Please specify all fields</p> }
+                    { isEmpty && <p className="checkout_error">Please specify all fields</p> }
                     <button className='checkout_paybtn' onClick={addOrder}>Proceed</button>
                 </div>
                 </>
             }
-        </div>
+        </>
     )
 }
+
+export default Checkout

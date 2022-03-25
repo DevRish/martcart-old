@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { getAllProducts } from '../../api/product'
 import Spinner from '../../components/Spinner/Spinner'
@@ -5,6 +6,11 @@ import Carousel from './../../components/Carousel/Carousel'
 import Collection from './../../components/Collection/Collection'
 
 const Home = () => {
+
+  useEffect(() => {
+      window.scrollTo(0,0);
+  }, []);
+
   const productsQuery = useQuery('product', getAllProducts, { initialData: { products: [] } } );
   var FootwearData = [];
   var FashionData = [];

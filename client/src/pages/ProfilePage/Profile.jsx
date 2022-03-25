@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { getUserData } from '../../api/user';
@@ -7,6 +8,11 @@ import { authLogout, checkLoggedIn } from '../../api/auth';
 import { queryClient } from '../../config/queryClient';
 
 const Profile = () => {
+
+    useEffect(() => {
+        window.scrollTo(0,0);
+    }, [])
+
     let navigate = useNavigate();
 
     const userQuery = useQuery('user', async () => {

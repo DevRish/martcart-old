@@ -7,6 +7,11 @@ import './CategoryPage.css';
 import Spinner from '../../components/Spinner/Spinner';
 
 const CategoryPage = () => {
+
+    useEffect(() => {
+        window.scrollTo(0,0);
+    }, [])
+
     const [searchText, setSearchText] = useState('');
     const { category } = useParams();
     const [productsData, setProductsData] = useState([]);

@@ -12,11 +12,11 @@
     background-color: var(--primary);
     border-radius: 10px;
 }
-.cartContainer h1 {
+.totalPrice h1{
     font-size: 3.5rem;
     color: white;
 }
-.cartContainer button{
+.totalPrice button{
     font-size: 2rem;
     border: none;
     color: var(--primary);
@@ -27,7 +27,7 @@
     padding: 0 2rem;
     cursor: pointer;
 }
-.cartContainer button:hover {
+.totalPrice button:hover {
     transform: scale(1.2);
 }
 .cartCard {

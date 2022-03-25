@@ -1,10 +1,15 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import SignUp from '../../components/AuthComp/SignUp';
 import SignIn from '../../components/AuthComp/SignIn';
 import AuthImg from './../../assets/AuthImages/authImg.svg';
 import "./AuthPage.css";
 
 const AuthPage = () => {
+
+    useEffect(() => {
+        window.scrollTo(0,0);
+    }, [])
+
     const [navIndex, setnavIndex] = useState(1);
     return (
         <div className="container auth">

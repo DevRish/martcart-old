@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { checkLoggedIn } from '../../api/auth';
 import Spinner from './../../components/Spinner/Spinner';
@@ -5,6 +6,10 @@ import { getOrderData } from '../../api/order';
 import "./MyOrders.css";
 
 const MyOrders = () => {
+
+    useEffect(() => {
+        window.scrollTo(0,0);
+    }, [])
 
     const authQuery = useQuery('auth', checkLoggedIn, { initialData: { username: '', isLoggedIn: false } } );
     const orderQuery = useQuery('order', async () => {
