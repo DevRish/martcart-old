@@ -20,6 +20,16 @@ const Navbar = () => {
 
     const [showMenu, setshowMenu] = useState(false);
 
+    const calcCartCount = () => {
+        if(cartQuery.data.length === 0) return 0;
+        else
+        {
+            let total = 0;
+            cartQuery.data.forEach((item) => { total += item.quantity });
+            return total;
+        }
+    }
+
     return (
         <nav>
             <div className="navContainer">
@@ -51,7 +61,7 @@ const Navbar = () => {
                                 placeItems:"center"
                         }}>
                             {/* {console.log(cartQuery)} */}
-                            <p style={{ fontSize: "1.5rem" }}>{cartQuery.data.length}</p></div>
+                            <p style={{ fontSize: "1.5rem" }}>{calcCartCount()}</p></div>
                             <i className="fas fa-shopping-cart"></i>
                         </Link>
                     </li>

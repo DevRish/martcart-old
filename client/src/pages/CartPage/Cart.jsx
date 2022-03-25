@@ -207,8 +207,9 @@ const Cart = () => {
                                     <h4>{data.prod_name}</h4>
                                     <div style={{ fontSize: "1.8rem", marginBottom: "1.5rem" }}>
                                         <p>
-                                            <b> Rs {parseInt((data.price)*( 1 - (data.discount_percent*0.01)))}  </b>
+                                            <b> Rs {data.quantity * parseInt((data.price)*( 1 - (data.discount_percent*0.01)))}  </b>
                                         </p>
+                                        <p> <b>Quantity:</b> {data.quantity} </p>
                                         <h5 style={{ fontWeight: "normal" }}>⭐⭐⭐⭐⭐ 5.0</h5>
                                         <h5 style={{ fontWeight: "normal" }}>Free Delivery</h5>
                                     </div>
